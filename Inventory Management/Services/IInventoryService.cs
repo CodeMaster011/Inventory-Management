@@ -8,5 +8,9 @@ namespace Inventory_Management.Services
         IEnumerable<Balance> CalculateClosingBalances(IEnumerable<Balance> balances, IEnumerable<Transaction> transactions);
         double? CalculateClosingQuantity(string inventoryId, double openingQuantity, IEnumerable<Transaction> transactions);
         double? CalculateClosingAmount(string inventoryId, double openingAmount, IEnumerable<Transaction> transactions);
+
+
+        double? GetOpeningAmount(string inventoryId, IEnumerable<Balance> balances);
+        double? GetOpeningQuantity(string inventoryId, IEnumerable<Balance> balances);
     }
 }

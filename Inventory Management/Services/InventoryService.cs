@@ -80,5 +80,17 @@ namespace Inventory_Management.Services
             }
             return closingBalance;
         }
+
+        public double? GetOpeningAmount(string inventoryId, IEnumerable<Balance> balances)
+        {
+            var item = balances.FirstOrDefault(b => b.InventoryId == inventoryId);
+            return item?.Amount;
+        }
+
+        public double? GetOpeningQuantity(string inventoryId, IEnumerable<Balance> balances)
+        {
+            var item = balances.FirstOrDefault(b => b.InventoryId == inventoryId);
+            return item?.Quantity;
+        }
     }
 }

@@ -142,5 +142,10 @@ namespace Inventory_Management
             await Global.DataSource.Save();
             MessageBox.Show("Saved successfully");
         }
+
+        private void invTransactionReportMenu_Click(object sender, RoutedEventArgs e)
+        {
+            new Reports.InventoryTransactionReportWindow { Owner = this }.ShowDialog();
+        }
     }
 }

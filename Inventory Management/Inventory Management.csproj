@@ -91,6 +91,9 @@
     <Compile Include="Global.cs" />
     <Compile Include="IServices.cs" />
     <Compile Include="Models\Inventory.cs" />
+    <Compile Include="Reports\InventoryTransactionReportWindow.xaml.cs">
+      <DependentUpon>InventoryTransactionReportWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\DataService.cs" />
     <Compile Include="Services\IDataService.cs" />
     <Compile Include="Services\IInventoryService.cs" />
@@ -142,6 +145,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Reports\InventoryTransactionReportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
