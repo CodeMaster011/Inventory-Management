@@ -4,9 +4,118 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Inventory_Management.Dialogs"
+        xmlns:convt="clr-namespace:Inventory_Management.Converters"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        ui:WindowHelper.UseModernWindowStyle="True"
         mc:Ignorable="d"
-        Title="TransactionWindow" Height="450" Width="800">
+        Title="Transaction" Height="450" Width="800">
+    <Window.Resources>
+        <convt:InventoryIdToTextConverter x:Key="InventoryIdToTextConverter"/>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border BorderThickness="0 0 0 2" BorderBrush="{DynamicResource SystemAccentColorLight3Brush}" Margin="0 0 0 10" Padding="0 0 0 3">
+            <TextBlock Text="Transaction" Style="{DynamicResource TitleTextBlockStyle}" 
+                   Foreground="{DynamicResource SystemAccentColorLight3Brush}"/>
+        </Border>
+        <WrapPanel Grid.Row="1">
+            <ui:RadioButtons>
+                <RadioButton x:Name="actualRadioButton"
+                                 Content="Actual"/>
+                <RadioButton x:Name="portalRadioButton"
+                                 Content="Parly Portal"/>
+            </ui:RadioButtons>
+            <DatePicker
+                    SelectedDate="{Binding Transaction.Date}"
+                    x:Name="datePicker"
+                    VerticalAlignment="Top"
+                    ui:ControlHelper.Header="Date"
+                    ui:ControlHelper.PlaceholderText="Pick a date" />
+            <TextBox Text="{Binding Transaction.Remarks}"
+                         ui:ControlHelper.Header="Remarks"
+                         Margin="5"
+                         Width="200"
+                         IsReadOnly="{Binding IsReadOnly}"/>
+        </WrapPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="2" Margin="0 5">
+            <TextBox x:Name="searchInventoryNameTextbox" 
+                 KeyUp="searchInventoryNameTextbox_KeyUp"/>
+            <TextBlock Text="Press F9 to search" Margin="0 2"/>
+        </StackPanel>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical"
+                        DataContext="{Binding TranscationLine.InventoryId, Converter={StaticResource InventoryIdToTextConverter}}">
+                <TextBlock Text="{Binding Name}" FontSize="14"/>
+                <!--<TextBlock Text="{Binding SubCategory}"/>
+                <TextBlock Text="{Binding Category}"/>
+                <TextBlock Text="{Binding Hsn}"/>
+                <TextBlock Text="{Binding TaxRate}"/>-->
+            </StackPanel>
+            <TextBox Text="{Binding TranscationLine.Amount}"
+                     ui:ControlHelper.Header="Amount"
+                     Margin="5"
+                     Width="200"
+                     IsReadOnly="{Binding IsReadOnly}"
+                     Grid.Column="2"/>
+            <TextBox Text="{Binding TranscationLine.Quantity}"
+                     ui:ControlHelper.Header="Quantity"
+                     Margin="5"
+                     Width="200"
+                     IsReadOnly="{Binding IsReadOnly}"
+                     Grid.Column="1"/>
+            <Button Content="Add"
+                    Grid.Column="3"
+                    Command="{Binding AddTransactionLineCommand}"/>
+        </Grid>
+        <DataGrid Grid.Row="4"
+                  ItemsSource="{Binding Transaction.Lines}"
+                  SelectedItem="{Binding TranscationLine, UpdateSourceTrigger=PropertyChanged}"
+                  AutoGenerateColumns="False"
+                  HeadersVisibility="Column"
+                  GridLinesVisibility="Horizontal"
+                  VirtualizingPanel.VirtualizationMode="Recycling"
+                  SelectionMode="Single"
+                  CanUserAddRows="False"
+                  SelectionUnit="FullRow"
+                  IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn
+                    Header="Name">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical"
+                                        DataContext="{Binding InventoryId, Converter={StaticResource InventoryIdToTextConverter}}">
+                                                <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                                                <!--<TextBlock Text="{Binding SubCategory}"/>
+                                <TextBlock Text="{Binding Category}"/>
+                                <TextBlock Text="{Binding Hsn}"/>
+                                <TextBlock Text="{Binding TaxRate}"/>-->
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn
+                    Header="Quantity"
+                    Width="105"
+                    Binding="{Binding Quantity}" />
+                <DataGridTextColumn
+                    Header="Amount"
+                    Width="105"
+                    Binding="{Binding Amount}" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

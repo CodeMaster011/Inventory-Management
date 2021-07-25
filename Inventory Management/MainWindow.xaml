@@ -11,8 +11,11 @@
     <Grid>
         <ui:SimpleStackPanel Margin="12" Spacing="24">
             <TextBlock Text="My first ModernWPF app" Style="{StaticResource HeaderTextBlockStyle}"  />
-            <Button Content="I am a button" Click="Button_Click"/>
-            <Button Content="I am an accent button" Style="{StaticResource AccentButtonStyle}" />
+            <Button Content="Inventory" Click="Button_Click"/>
+            <Button Content="Import Master" x:Name="importMasterButton" Click="importMasterButton_Click"/>
+            <Button Content="Select Inventory" x:Name="selectInventoryButton" Click="selectInventoryButton_Click"/>
+            <Button Content="Add Transaction" x:Name="addTransactionButton" Click="addTransactionButton_Click"/>
+            <!--<Button Content="I am an accent button" Style="{StaticResource AccentButtonStyle}" />-->
         </ui:SimpleStackPanel>
     </Grid>
 </Window>

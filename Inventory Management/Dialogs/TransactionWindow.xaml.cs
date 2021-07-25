@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Inventory_Management.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,28 @@ namespace Inventory_Management.Dialogs
         public TransactionWindow()
         {
             InitializeComponent();
+        }
+
+        private void searchInventoryNameTextbox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.F9)
+            {
+                // search
+                var selecteInventory = new SelecteInventoryWindow();
+                selecteInventory.searchTextbox.Text = searchInventoryNameTextbox.Text;
+                if (selecteInventory.ShowDialog() != true) return;
+                if (selecteInventory.Inventory != null)
+                {
+                    var vm = (this.DataContext as TransactionWindowViewModel);
+                    if(vm == null)
+                    {
+                        MessageBox.Show("Internal error. View Model not found.");
+                        return;
+                    }
+                    searchInventoryNameTextbox.Text = selecteInventory.Inventory.Name;
+                    vm.TranscationLine.InventoryId = selecteInventory.Inventory.Id;
+                }
+            }
         }
     }
 }

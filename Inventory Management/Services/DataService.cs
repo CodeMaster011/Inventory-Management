@@ -28,6 +28,9 @@ namespace Inventory_Management.Services
             sources.Add(metadata);
             await UpdateMetadata(sources);
 
+            source.SetMetadata(metadata);
+            source.SetDataService(this);
+
             var dataFilePath = Path.Combine(_dataDir, metadata.SourceFileName);
             await Task.Run(() =>
                 File.WriteAllText(dataFilePath, Newtonsoft.Json.JsonConvert.SerializeObject(source)));
@@ -36,7 +39,10 @@ namespace Inventory_Management.Services
         public DataSource GetDataSource(DataSourceMetadata metadata)
         {
             var dataFilePath = Path.Combine(_dataDir, metadata.SourceFileName);
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<DataSource>(File.ReadAllText(dataFilePath));
+            var source = Newtonsoft.Json.JsonConvert.DeserializeObject<DataSource>(File.ReadAllText(dataFilePath));
+            source.SetMetadata(metadata);
+            source.SetDataService(this);
+            return source;
         }
 
         public DataSourceMetadata[] GetDataSources()

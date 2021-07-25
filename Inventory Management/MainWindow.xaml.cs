@@ -36,5 +36,31 @@ namespace Inventory_Management
                 }
             }.ShowDialog();
         }
+
+        private void importMasterButton_Click(object sender, RoutedEventArgs e)
+        {
+            new Dialogs.ImportInventoryWindow().ShowDialog();
+        }
+
+        private void selectInventoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selecteInventory = new Dialogs.SelecteInventoryWindow();
+            selecteInventory.searchTextbox.Text = "G";
+            if (selecteInventory.ShowDialog() != true) return;
+            if (selecteInventory.Inventory != null)
+                MessageBox.Show(selecteInventory.Inventory.Name);
+        }
+
+        private void addTransactionButton_Click(object sender, RoutedEventArgs e)
+        {
+            new Dialogs.TransactionWindow()
+            {
+                DataContext = new ViewModels.TransactionWindowViewModel
+                {
+                    IsReadOnly = false,
+                    IsCreateAllow = true
+                }
+            }.ShowDialog();
+        }
     }
 }

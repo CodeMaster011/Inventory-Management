@@ -62,8 +62,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\InventoryIdToTextConverter.cs" />
+    <Compile Include="Dialogs\ImportInventoryWindow.xaml.cs">
+      <DependentUpon>ImportInventoryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\InventoryWindow.xaml.cs">
       <DependentUpon>InventoryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SelecteInventoryWindow.xaml.cs">
+      <DependentUpon>SelecteInventoryWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\TransactionWindow.xaml.cs">
       <DependentUpon>TransactionWindow.xaml</DependentUpon>
@@ -76,7 +83,15 @@
     <Compile Include="StdClass.cs" />
     <Compile Include="ViewModels\InventoryWindowViewModel.cs" />
     <Compile Include="ViewModels\TransactionWindowViewModel.cs" />
+    <Page Include="Dialogs\ImportInventoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\InventoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\SelecteInventoryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

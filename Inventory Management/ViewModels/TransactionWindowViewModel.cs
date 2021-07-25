@@ -12,15 +12,29 @@ namespace Inventory_Management.ViewModels
     public class TransactionWindowViewModel : BindableBaseFody
     {
         public Transaction Transaction { get; set; } = new Transaction();
-        public List<string> Categorys { get; set; }
+        public TranscationLine TranscationLine { get; set; } = new TranscationLine();
         public bool IsReadOnly { get; set; }
         public bool IsCreateAllow { get; set; }
         public StandardCommand CreateNewCommand { get; set; }
+        public StandardCommand AddTransactionLineCommand { get; set; }
 
         public TransactionWindowViewModel()
         {
-            Categorys = Global.DataSource.Inventories.Select(i => i.Category).ToList();
             CreateNewCommand = new StandardCommand(_ => createNew());
+            AddTransactionLineCommand = new StandardCommand(_ => addTransactionLine());
+        }
+
+        private void addTransactionLine()
+        {
+            if(string.IsNullOrEmpty(TranscationLine.InventoryId))
+            {
+                MessageBox.Show("Please choose an inventory. Press F9 to do search.");
+                return;
+            }
+            Transaction.Lines.Add(TranscationLine);
+            TranscationLine = new TranscationLine();
+            
+            NotifyPropertyChanged(nameof(Transaction));
         }
 
         private void createNew()
