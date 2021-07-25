@@ -1,0 +1,55 @@
+﻿<Window x:Class="Inventory_Management.Dialogs.ListTransactionsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Inventory_Management.Dialogs"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        ui:WindowHelper.UseModernWindowStyle="True"
+        WindowStartupLocation="CenterOwner"
+        mc:Ignorable="d"
+        Title="List Transactions" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border BorderThickness="0 0 0 2" BorderBrush="{DynamicResource SystemAccentColorLight3Brush}" Margin="0 0 0 10" Padding="0 0 0 3">
+            <TextBlock Text="List Transactions" Style="{DynamicResource TitleTextBlockStyle}" 
+                   Foreground="{DynamicResource SystemAccentColorLight3Brush}"/>
+        </Border>
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <ui:RadioButtons>
+                <RadioButton x:Name="actualRadioButton"
+                             Content="Actual"
+                             Checked="actualRadioButton_Checked"/>
+                <RadioButton x:Name="portalRadioButton"
+                             Content="Parly Portal" 
+                             Checked="portalRadioButton_Checked"/>
+            </ui:RadioButtons>
+        </StackPanel>
+        <DataGrid
+             x:Name="dataGrid"
+            AutoGenerateColumns="False"
+            HeadersVisibility="Column"
+            GridLinesVisibility="Horizontal"
+            VirtualizingPanel.VirtualizationMode="Recycling"
+            MouseDoubleClick="dataGrid_MouseDoubleClick"
+            SelectionMode="Single"
+            CanUserAddRows="False"
+            SelectionUnit="FullRow"
+            IsReadOnly="True"
+            Grid.Row="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nature"
+                                    Binding="{Binding Nature}"/>
+                <DataGridTextColumn Header="Date"
+                                    Binding="{Binding Date, StringFormat='dd MMM, yyyy'}"/>
+                <DataGridTextColumn Header="Remarks"
+                                    Binding="{Binding Remarks}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

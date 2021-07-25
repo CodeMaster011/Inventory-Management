@@ -65,7 +65,82 @@ namespace Inventory_Management
 
         private void openData_Click(object sender, RoutedEventArgs e)
         {
-            new Dialogs.SelectDatasourceWindow().ShowDialog();
+            new Dialogs.SelectDatasourceWindow() { Owner = this }.ShowDialog();
+        }
+
+        private void exitMenu_Click(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void addNewInventoryMenu_Click(object sender, RoutedEventArgs e)
+        {
+            new Dialogs.InventoryWindow()
+            {
+                Owner = this,
+                DataContext = new ViewModels.InventoryWindowViewModel
+                {
+                    IsCreateAllow = true
+                }
+            }.ShowDialog();
+        }
+
+        private void listInventoryMenu_Click(object sender, RoutedEventArgs e)
+        {
+            new Dialogs.ListInventoryWindow() { Owner = this }.ShowDialog();
+        }
+
+        private void addNewActualTransactionMenu_Click(object sender, RoutedEventArgs e)
+        {
+            new Dialogs.TransactionWindow()
+            {
+                Owner = this,
+                DataContext = new ViewModels.TransactionWindowViewModel
+                {
+                    IsReadOnly = false,
+                    IsCreateAllow = true,
+                    IsActual = true
+                }
+            }.ShowDialog();
+        }
+
+        private void listActualTransactionMenu_Click(object sender, RoutedEventArgs e)
+        {
+            var wind = new Dialogs.ListTransactionsWindow { Owner = this };
+            wind.actualRadioButton.IsChecked = true;
+            wind.ShowDialog();
+        }
+
+        private void addNewPortalTransactionMenu_Click(object sender, RoutedEventArgs e)
+        {
+            new Dialogs.TransactionWindow()
+            {
+                Owner = this,
+                DataContext = new ViewModels.TransactionWindowViewModel
+                {
+                    IsReadOnly = false,
+                    IsCreateAllow = true,
+                    IsPortal = true
+                }
+            }.ShowDialog();
+        }
+
+        private void listPortalTransactionMenu_Click(object sender, RoutedEventArgs e)
+        {
+            var wind = new Dialogs.ListTransactionsWindow { Owner = this };
+            wind.portalRadioButton.IsChecked = true;
+            wind.ShowDialog();
+        }
+
+        private void importMaster_Click(object sender, RoutedEventArgs e)
+        {
+            new Dialogs.ImportInventoryWindow() { Owner = this }.ShowDialog();
+        }
+
+        private async void saveMenu_Click(object sender, RoutedEventArgs e)
+        {
+            await Global.DataSource.Save();
+            MessageBox.Show("Saved successfully");
         }
     }
 }

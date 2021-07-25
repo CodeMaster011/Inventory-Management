@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Inventory_Management"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         ui:WindowHelper.UseModernWindowStyle="True"
+        WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         Title="Inventory Management" Height="450" Width="800">
     <Grid>
@@ -18,12 +19,37 @@
         <TextBlock Text="Inventory Management" Style="{StaticResource HeaderTextBlockStyle}"  />
         <Menu Grid.Row="1">
             <MenuItem Header="File">
-                <MenuItem Header="Open Data" x:Name="openData" Click="openData_Click"/>
+                <MenuItem Header="Open Source" x:Name="openData" Click="openData_Click"/>
+                <MenuItem Header="Disk Save" x:Name="saveMenu" Click="saveMenu_Click"/>
+                <MenuItem Header="Cloud Save" IsEnabled="False"/>
+                <Separator/>
+                <MenuItem Header="Import">
+                    <MenuItem Header="Master" x:Name="importMaster" Click="importMaster_Click"/>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Exit" x:Name="exitMenu" Click="exitMenu_Click"/>
+            </MenuItem>
+            <MenuItem Header="Inventory">
+                <MenuItem Header="Add New" x:Name="addNewInventoryMenu" Click="addNewInventoryMenu_Click"/>
+                <MenuItem Header="List" x:Name="listInventoryMenu" Click="listInventoryMenu_Click"/>
+            </MenuItem>
+            <MenuItem Header="Transaction">
+                <MenuItem Header="Actual">
+                    <MenuItem Header="Add New" x:Name="addNewActualTransactionMenu" Click="addNewActualTransactionMenu_Click"/>
+                    <MenuItem Header="List" x:Name="listActualTransactionMenu" Click="listActualTransactionMenu_Click"/>
+                </MenuItem>
+                <MenuItem Header="Partly Portal">
+                    <MenuItem Header="Add New" x:Name="addNewPortalTransactionMenu" Click="addNewPortalTransactionMenu_Click"/>
+                    <MenuItem Header="List" x:Name="listPortalTransactionMenu" Click="listPortalTransactionMenu_Click"/>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="About"/>
             </MenuItem>
         </Menu>
         
         
-        <ui:SimpleStackPanel Margin="12" Spacing="24" Orientation="Horizontal">
+        <ui:SimpleStackPanel Margin="12" Spacing="24" Orientation="Horizontal" Visibility="Collapsed">
             
             <Button Content="Inventory" Click="Button_Click"/>
             <Button Content="Import Master" x:Name="importMasterButton" Click="importMasterButton_Click"/>

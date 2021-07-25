@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Inventory_Management.Dialogs"
         mc:Ignorable="d"
-        Title="Select Inventory" Height="450" Width="800">
+        WindowStartupLocation="CenterOwner"
+        Title="Select Inventory" Height="450" Width="800"
+        >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -17,7 +19,7 @@
             <TextBlock Text="Select Inventory" Style="{DynamicResource TitleTextBlockStyle}" 
                    Foreground="{DynamicResource SystemAccentColorLight3Brush}"/>
         </Border>
-        <TextBox x:Name="searchTextbox" TextChanged="searchTextbox_TextChanged" Grid.Row="1"/>
+        <TextBox x:Name="searchTextbox" TextChanged="searchTextbox_TextChanged" Grid.Row="1" KeyUp="Window_KeyUp"/>
         <DataGrid
             x:Name="dataGrid"
             AutoGenerateColumns="False"

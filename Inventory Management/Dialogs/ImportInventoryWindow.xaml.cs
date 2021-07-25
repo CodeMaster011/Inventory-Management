@@ -23,6 +23,9 @@ namespace Inventory_Management.Dialogs
     public partial class ImportInventoryWindow : Window
     {
         public List<Inventory> Inventories { get; set; } = new List<Inventory>();
+        public List<Balance> ActualOpening { get; set; } = new List<Balance>();
+        public List<Balance> PortalOpening { get; set; } = new List<Balance>();
+
 
         public ImportInventoryWindow()
         {
@@ -36,21 +39,40 @@ namespace Inventory_Management.Dialogs
             if (diag.ShowDialog() != true) return;
 
             var filePath = diag.FileName;
-            Inventories = File.ReadAllLines(filePath)
+            var splitedLines = File.ReadAllLines(filePath)
                 .Skip(1) // skip header
-                .Select(l => l.Split(','))
-                .Select(d => new Inventory
+                .Select(l => l.Split(','));
+
+            foreach (var d in splitedLines)
+            {
+                var x = 0;
+                var item = new Inventory
                 {
                     Id = Guid.NewGuid().ToString("n"),
-                    Category = d[0],
-                    SubCategory = d[1],
-                    Name = d[2],
-                    Hsn = d[3],
-                    Unit = d[4],
-                    TaxRate = double.TryParse(d[5], out var _t) ? _t : default,
-                    Rate = double.TryParse(d[6], out var _r) ? _r : default,
-                })
-                .ToList();
+                    Category = d[x],
+                    SubCategory = d[++x],
+                    Name = d[++x],
+                    Hsn = d[++x],
+                    Unit = d[++x],
+                    TaxRate = double.TryParse(d[++x], out var _t) ? _t : default,
+                    Rate = double.TryParse(d[++x], out var _r) ? _r : default,
+                };
+                Inventories.Add(item);
+
+                ActualOpening.Add(new Balance
+                {
+                    InventoryId = item.Id,
+                    Quantity = double.TryParse(d[++x], out var _aq) ? _aq : default,
+                    Amount = double.TryParse(d[++x], out var _aa) ? _aa : default,
+                });
+
+                PortalOpening.Add(new Balance
+                {
+                    InventoryId = item.Id,
+                    Quantity = double.TryParse(d[++x], out var _pq) ? _pq : default,
+                    Amount = double.TryParse(d[++x], out var _pa) ? _pa : default,
+                });
+            }
             dataGrid.ItemsSource = Inventories;
         }
 
@@ -58,8 +80,15 @@ namespace Inventory_Management.Dialogs
         {
             if (Global.DataSource.Inventories == null)
                 Global.DataSource.Inventories = new List<Inventory>();
-            
+            if (Global.DataSource.PortalOpening == null)
+                Global.DataSource.PortalOpening = new List<Balance>();
+            if (Global.DataSource.ActualOpening == null)
+                Global.DataSource.ActualOpening = new List<Balance>();
+
             Global.DataSource.Inventories.AddRange(Inventories);
+            Global.DataSource.PortalOpening.AddRange(PortalOpening);
+            Global.DataSource.ActualOpening.AddRange(ActualOpening);
+
             await Global.DataSource.Save();
             Close();
         }
@@ -73,6 +102,7 @@ namespace Inventory_Management.Dialogs
                     DataContext = new ViewModels.InventoryWindowViewModel
                     {
                         Inventory = inv,
+
                         IsReadOnly = false,
                         IsCreateAllow = false
                     }

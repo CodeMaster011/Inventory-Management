@@ -25,10 +25,10 @@ namespace Inventory_Management
             initializeServices();
 
 #if DEBUG
-            ThreadPool.QueueUserWorkItem(_ =>
-            {
-                test().ConfigureAwait(false).GetAwaiter().GetResult();
-            });
+            //ThreadPool.QueueUserWorkItem(_ =>
+            //{
+            //    test().ConfigureAwait(false).GetAwaiter().GetResult();
+            //});
 #endif
         }
 
@@ -45,11 +45,11 @@ namespace Inventory_Management
                     ToDate = new DateTime(2021, 7, 31),
                     Inventories = new List<Models.Inventory>
                     {
-                        new Models.Inventory
-                        {
-                            Id = Guid.NewGuid().ToString("n"),
-                            Name = "TOP @ 20154"
-                        }
+                        //new Models.Inventory
+                        //{
+                        //    Id = Guid.NewGuid().ToString("n"),
+                        //    Name = "TOP @ 20154"
+                        //}
                     }
                 });
             }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Inventory_Management.Services
@@ -48,7 +49,9 @@ namespace Inventory_Management.Services
         public DataSourceMetadata[] GetDataSources()
         {
             if (!File.Exists(_metadataFilePath)) return null;
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<DataSourceMetadata[]>(File.ReadAllText(_metadataFilePath));
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<DataSourceMetadata[]>(File.ReadAllText(_metadataFilePath))
+                .OrderByDescending(m => m.CreatedOn)
+                .ToArray();
         }
 
         public Task SaveDataSource(DataSourceMetadata metadata, DataSource source)

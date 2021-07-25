@@ -7,10 +7,12 @@
         xmlns:convt="clr-namespace:Inventory_Management.Converters"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         ui:WindowHelper.UseModernWindowStyle="True"
+        WindowStartupLocation="CenterOwner"
         mc:Ignorable="d"
         Title="Transaction" Height="450" Width="800">
     <Window.Resources>
         <convt:InventoryIdToTextConverter x:Key="InventoryIdToTextConverter"/>
+        <convt:BoolInversionConverter x:Key="BoolInversionConverter"/>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -28,27 +30,41 @@
         <WrapPanel Grid.Row="1">
             <ui:RadioButtons>
                 <RadioButton x:Name="actualRadioButton"
-                                 Content="Actual"
-                             IsChecked="{Binding IsActual}"/>
+                             Content="Actual"
+                             IsChecked="{Binding IsActual}" 
+                             IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInversionConverter}}"/>
                 <RadioButton x:Name="portalRadioButton"
-                                 Content="Parly Portal"
-                             IsChecked="{Binding IsPortal}"/>
+                             Content="Parly Portal"
+                             IsChecked="{Binding IsPortal}" 
+                             IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInversionConverter}}"/>
             </ui:RadioButtons>
             <DatePicker
                     SelectedDate="{Binding Transaction.Date}"
                     x:Name="datePicker"
                     VerticalAlignment="Top"
                     ui:ControlHelper.Header="Date"
-                    ui:ControlHelper.PlaceholderText="Pick a date" />
+                    ui:ControlHelper.PlaceholderText="Pick a date"
+                    IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInversionConverter}}"/>
             <TextBox Text="{Binding Transaction.Remarks}"
                          ui:ControlHelper.Header="Remarks"
                          Margin="5"
                          Width="200"
-                         IsReadOnly="{Binding IsReadOnly}"/>
+                         IsReadOnly="{Binding IsReadOnly}"
+                     IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInversionConverter}}"/>
+            <ComboBox SelectedValue="{Binding Transaction.Nature}"
+                      ui:ControlHelper.Header="Nature"
+                      Margin="5"
+                      x:Name="tNatureCBox"
+                      Width="200"
+                      IsReadOnly="{Binding IsReadOnly}"
+                      IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInversionConverter}}">
+            </ComboBox>
         </WrapPanel>
         <StackPanel Orientation="Vertical" Grid.Row="2" Margin="0 5">
             <TextBox x:Name="searchInventoryNameTextbox" 
-                 KeyUp="searchInventoryNameTextbox_KeyUp"/>
+                 KeyUp="searchInventoryNameTextbox_KeyUp"
+                     IsReadOnly="{Binding IsReadOnly}"
+                     IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInversionConverter}}"/>
             <TextBlock Text="Press F9 to search" Margin="0 2"/>
         </StackPanel>
         <Grid Grid.Row="3">
@@ -73,21 +89,25 @@
                      Margin="5"
                      Width="200"
                      IsReadOnly="{Binding IsReadOnly}"
+                     IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInversionConverter}}"
                      Grid.Column="1"/>
             <TextBox Text="{Binding TranscationLine.Amount}"
                      ui:ControlHelper.Header="Amount"
                      Margin="5"
                      Width="200"
                      IsReadOnly="{Binding IsReadOnly}"
+                     IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInversionConverter}}"
                      Grid.Column="2"/>
             <StackPanel Orientation="Vertical" Grid.Column="3">
                 <Button Content="Add"
                     Padding="10 5"
                     x:Name="addTransactionButton"
-                    Click="addTransactionButton_Click" />
+                    Click="addTransactionButton_Click" 
+                        IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInversionConverter}}"/>
                 <Button Content="Reset"
                     Padding="10 5"
-                    Command="{Binding ResetTransactionLineCommand}"/>
+                    Command="{Binding ResetTransactionLineCommand}"
+                        IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInversionConverter}}"/>
             </StackPanel>
         </Grid>
         <DataGrid Grid.Row="4"
@@ -145,6 +165,7 @@
             <Button Content="Create New"
                     x:Name="createNewTransactionButton"
                     Click="createNewTransactionButton_Click"
+                    IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInversionConverter}}"
                     Style="{StaticResource AccentButtonStyle}"/>
         </StackPanel>
     </Grid>

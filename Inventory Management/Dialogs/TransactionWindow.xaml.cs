@@ -1,4 +1,5 @@
-﻿using Inventory_Management.ViewModels;
+﻿using Inventory_Management.Models;
+using Inventory_Management.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace Inventory_Management.Dialogs
         public TransactionWindow()
         {
             InitializeComponent();
+            tNatureCBox.ItemsSource = Enum.GetValues(typeof(TransactionNature));
         }
 
         private void searchInventoryNameTextbox_KeyUp(object sender, KeyEventArgs e)
@@ -30,7 +32,7 @@ namespace Inventory_Management.Dialogs
             if(e.Key == Key.F9)
             {
                 // search
-                var selecteInventory = new SelecteInventoryWindow();
+                var selecteInventory = new SelecteInventoryWindow() { Owner = this };
                 selecteInventory.searchTextbox.Text = searchInventoryNameTextbox.Text;
                 if (selecteInventory.ShowDialog() != true) return;
                 if (selecteInventory.Inventory != null)

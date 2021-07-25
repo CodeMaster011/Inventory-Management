@@ -25,12 +25,26 @@ namespace Inventory_Management.Dialogs
             InitializeComponent();
         }
 
-        private void makeDatasourceButton_Click(object sender, RoutedEventArgs e)
+        private async void makeDatasourceButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!fromDate.SelectedDate.HasValue
-                || !toDate.SelectedDate.HasValue)
+            
+
+            if (!fromDate.SelectedDate.HasValue)
             {
                 MessageBox.Show("From date or To date is missing or both.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (Global.DataSource == null)
+            {
+                Global.DataSource = new DataSource
+                {
+                    CreatedOn = DateTime.Now,
+                    FromDate = fromDate.SelectedDate,
+                    ToDate = toDate.SelectedDate,
+                };
+                await Global.Services.GetServiceHard<IDataService>().AddDatasource(Global.DataSource);
+                MessageBox.Show("New data source created.");
                 return;
             }
 

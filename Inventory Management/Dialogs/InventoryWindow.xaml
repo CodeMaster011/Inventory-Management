@@ -7,6 +7,7 @@
         xmlns:vmlocal="clr-namespace:Inventory_Management.ViewModels"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         ui:WindowHelper.UseModernWindowStyle="True"
+        WindowStartupLocation="CenterOwner"
         mc:Ignorable="d"
         Title="Inventory" Height="450" Width="800">
     <Grid Margin="5">
@@ -21,43 +22,69 @@
         </Border>
         
         <ScrollViewer Grid.Row="1">
-            <WrapPanel Orientation="Horizontal">
-                <TextBox Text="{Binding Inventory.Category}"
+            <StackPanel Orientation="Vertical">
+                <WrapPanel Orientation="Horizontal">
+                    <TextBox Text="{Binding Inventory.Category}"
                          ui:ControlHelper.Header="Category"
                          Margin="5"
                          Width="200"
                          IsReadOnly="{Binding IsReadOnly}"/>
-                <TextBox Text="{Binding Inventory.SubCategory}"
+                    <TextBox Text="{Binding Inventory.SubCategory}"
                          ui:ControlHelper.Header="Sub Category"
                          Margin="5"
                          Width="200"
                          IsReadOnly="{Binding IsReadOnly}"/>
-                <TextBox Text="{Binding Inventory.Name}"
+                    <TextBox Text="{Binding Inventory.Name}"
                          ui:ControlHelper.Header="Name"
                          Margin="5"
                          Width="200"
                          IsReadOnly="{Binding IsReadOnly}"/>
-                <TextBox Text="{Binding Inventory.Hsn}"
+                    <TextBox Text="{Binding Inventory.Hsn}"
                          ui:ControlHelper.Header="Hsn"
                          Margin="5"
                          Width="200"
                          IsReadOnly="{Binding IsReadOnly}"/>
-                <TextBox Text="{Binding Inventory.Unit}"
+                    <TextBox Text="{Binding Inventory.Unit}"
                          ui:ControlHelper.Header="Unit"
                          Margin="5"
                          Width="200"
                          IsReadOnly="{Binding IsReadOnly}"/>
-                <TextBox Text="{Binding Inventory.TaxRate}"
+                    <TextBox Text="{Binding Inventory.TaxRate}"
                          ui:ControlHelper.Header="Tax Rate"
                          Margin="5"
                          Width="200"
                          IsReadOnly="{Binding IsReadOnly}"/>
-                <TextBox Text="{Binding Inventory.Rate}"
+                    <TextBox Text="{Binding Inventory.Rate}"
                          ui:ControlHelper.Header="Rate"
                          Margin="5"
                          Width="200"
                          IsReadOnly="{Binding IsReadOnly}"/>
-            </WrapPanel>
+
+
+                    <TextBox Text="{Binding ActualOpeningBalance.Quantity}"
+                         ui:ControlHelper.Header="Actual Quantity"
+                         Margin="5"
+                         Width="200"
+                         IsReadOnly="{Binding IsReadOnly}"/>
+                    <TextBox Text="{Binding ActualOpeningBalance.Amount}"
+                         ui:ControlHelper.Header="Actual Amount"
+                         Margin="5"
+                         Width="200"
+                         IsReadOnly="{Binding IsReadOnly}"/>
+
+                    <TextBox Text="{Binding PortalOpeningBalance.Quantity}"
+                         ui:ControlHelper.Header="Portal Quantity"
+                         Margin="5"
+                         Width="200"
+                         IsReadOnly="{Binding IsReadOnly}"/>
+                    <TextBox Text="{Binding PortalOpeningBalance.Amount}"
+                         ui:ControlHelper.Header="Portal Amount"
+                         Margin="5"
+                         Width="200"
+                         IsReadOnly="{Binding IsReadOnly}"/>
+                </WrapPanel>
+            </StackPanel>
+            
         </ScrollViewer>
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right" Margin="10 0">
             <StackPanel.Style>

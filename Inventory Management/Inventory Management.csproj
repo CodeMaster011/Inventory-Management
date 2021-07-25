@@ -62,6 +62,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\BoolInversionConverter.cs" />
     <Compile Include="Converters\InventoryIdToTextConverter.cs" />
     <Compile Include="Dialogs\CreateDatasourceWindow.xaml.cs">
       <DependentUpon>CreateDatasourceWindow.xaml</DependentUpon>
@@ -71,6 +72,12 @@
     </Compile>
     <Compile Include="Dialogs\InventoryWindow.xaml.cs">
       <DependentUpon>InventoryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ListInventoryWindow.xaml.cs">
+      <DependentUpon>ListInventoryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ListTransactionsWindow.xaml.cs">
+      <DependentUpon>ListTransactionsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\SelectDatasourceWindow.xaml.cs">
       <DependentUpon>SelectDatasourceWindow.xaml</DependentUpon>
@@ -100,6 +107,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\InventoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ListInventoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ListTransactionsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

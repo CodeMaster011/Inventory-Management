@@ -13,6 +13,8 @@ namespace Inventory_Management.ViewModels
     public class InventoryWindowViewModel : BindableBaseFody
     {
         public Inventory Inventory { get; set; } = new Inventory();
+        public Balance ActualOpeningBalance { get; set; } = new Balance();
+        public Balance PortalOpeningBalance { get; set; } = new Balance();
         public bool IsReadOnly { get; set; }
         public bool IsCreateAllow { get; set; }
         public StandardCommand CreateNewCommand { get; set; }
@@ -20,6 +22,12 @@ namespace Inventory_Management.ViewModels
         public InventoryWindowViewModel()
         {
             CreateNewCommand = new StandardCommand(_ => createNewInventory());
+            AddOnPropertyChangedCallback(nameof(Inventory), () =>
+            {
+                if (string.IsNullOrWhiteSpace(Inventory?.Id)) return;
+                ActualOpeningBalance = Global.DataSource.ActualOpening.Find(b => b.InventoryId == Inventory.Id) ?? new Balance();
+                PortalOpeningBalance = Global.DataSource.PortalOpening.Find(b => b.InventoryId == Inventory.Id) ?? new Balance();
+            });
         }
 
         private void createNewInventory()

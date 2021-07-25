@@ -22,8 +22,8 @@ namespace Inventory_Management.Services
         public string Id { get; set; }
 
         public DateTime CreatedOn { get; set; }
-        public DateTime FromDate { get; set; }
-        public DateTime ToDate { get; set; }
+        public DateTime? FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
 
         public string SourceFileName { get; set; }
     }
@@ -36,8 +36,8 @@ namespace Inventory_Management.Services
         public string Id { get; set; }
 
         public DateTime CreatedOn { get; set; }
-        public DateTime FromDate { get; set; }
-        public DateTime ToDate { get; set; }
+        public DateTime? FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
 
         public List<Inventory> Inventories { get; set; } = new List<Inventory>();
         public List<Balance> ActualOpening { get; set; } = new List<Balance>();
