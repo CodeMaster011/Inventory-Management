@@ -35,7 +35,7 @@ namespace Inventory_Management.Dialogs
                 if (selecteInventory.ShowDialog() != true) return;
                 if (selecteInventory.Inventory != null)
                 {
-                    var vm = (this.DataContext as TransactionWindowViewModel);
+                    var vm = this.DataContext as TransactionWindowViewModel;
                     if(vm == null)
                     {
                         MessageBox.Show("Internal error. View Model not found.");
@@ -45,6 +45,29 @@ namespace Inventory_Management.Dialogs
                     vm.TranscationLine.InventoryId = selecteInventory.Inventory.Id;
                 }
             }
+        }
+
+        private void addTransactionButton_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = this.DataContext as TransactionWindowViewModel;
+            if(vm == null)
+            {
+                MessageBox.Show("Internal Error. View Model not found.");
+                return;
+            }
+            vm.AddTransactionLineCommand.Execute(null);
+            datagrid.ItemsSource = null;
+            datagrid.ItemsSource = vm.Transaction.Lines;
+            searchInventoryNameTextbox.Text = null;
+            searchInventoryNameTextbox.Focus();
+        }
+
+        private void createNewTransactionButton_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = this.DataContext as TransactionWindowViewModel;
+            vm.CreateNewCommand.Execute(null);
+            datagrid.ItemsSource = vm.Transaction.Lines;
+            datePicker.Focus();
         }
     }
 }

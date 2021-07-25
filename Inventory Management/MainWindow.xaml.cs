@@ -62,5 +62,10 @@ namespace Inventory_Management
                 }
             }.ShowDialog();
         }
+
+        private void openData_Click(object sender, RoutedEventArgs e)
+        {
+            new Dialogs.SelectDatasourceWindow().ShowDialog();
+        }
     }
 }

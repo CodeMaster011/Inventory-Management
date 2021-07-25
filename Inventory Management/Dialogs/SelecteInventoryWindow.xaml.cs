@@ -25,12 +25,8 @@ namespace Inventory_Management.Dialogs
         public SelecteInventoryWindow()
         {
             InitializeComponent();
-        }
-
-        protected override void OnGotFocus(RoutedEventArgs e)
-        {
-            base.OnGotFocus(e);
             searchTextbox.Focus();
+            searchTextbox.SelectAll();
         }
 
         private void searchTextbox_TextChanged(object sender, TextChangedEventArgs e)

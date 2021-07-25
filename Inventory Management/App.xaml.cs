@@ -65,6 +65,7 @@ namespace Inventory_Management
             Global.Services = new DefaultServices();
             
             Global.Services.Register<IDataService>(new DataService());
+            Global.Services.Register<IInventoryService>(new InventoryService());
         }
 
         private void app_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

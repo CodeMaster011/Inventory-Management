@@ -21,25 +21,34 @@ namespace Inventory_Management.Models
         public Inventory Clone() => JsonConvert.DeserializeObject<Inventory>(JsonConvert.SerializeObject(this));
     }
 
-    public class OpeningBalance : BindableBaseFody
+    public class Balance : BindableBaseFody
     {
         public string InventoryId { get; set; }
         public double? Quantity { get; set; }
         public double? Amount { get; set; }
         public DateTime? OnDate { get; set; }
 
-        public Inventory Clone() => JsonConvert.DeserializeObject<Inventory>(JsonConvert.SerializeObject(this));
+        public Balance Clone() => JsonConvert.DeserializeObject<Balance>(JsonConvert.SerializeObject(this));
     }
 
     public class Transaction : BindableBaseFody
     {
         public string Id { get; set; }
 
+        public TransactionNature Nature { get; set; }
         public DateTime? Date { get; set; }
         public List<TranscationLine> Lines { get; set; } = new List<TranscationLine>();
         public string Remarks { get; set; }
 
-        public Inventory Clone() => JsonConvert.DeserializeObject<Inventory>(JsonConvert.SerializeObject(this));
+        public Transaction Clone() => JsonConvert.DeserializeObject<Transaction>(JsonConvert.SerializeObject(this));
+    }
+
+    public enum TransactionNature
+    {
+        Sales,
+        Purchase,
+        CreditNote,
+        DebitNote
     }
 
     public class TranscationLine : BindableBaseFody
@@ -48,6 +57,6 @@ namespace Inventory_Management.Models
         public double? Amount { get; set; }
         public double? Quantity { get; set; }
 
-        public Inventory Clone() => JsonConvert.DeserializeObject<Inventory>(JsonConvert.SerializeObject(this));
+        public TranscationLine Clone() => JsonConvert.DeserializeObject<TranscationLine>(JsonConvert.SerializeObject(this));
     }
 }

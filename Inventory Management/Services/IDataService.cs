@@ -40,11 +40,11 @@ namespace Inventory_Management.Services
         public DateTime ToDate { get; set; }
 
         public List<Inventory> Inventories { get; set; } = new List<Inventory>();
-        public List<OpeningBalance> ActualOpening { get; set; } = new List<OpeningBalance>();
+        public List<Balance> ActualOpening { get; set; } = new List<Balance>();
         public List<Transaction> ActualTransactions { get; set; } = new List<Transaction>();
 
         // PORTAL
-        public List<OpeningBalance> PortalOpening { get; set; } = new List<OpeningBalance>();
+        public List<Balance> PortalOpening { get; set; } = new List<Balance>();
         public List<Transaction> PortalTransactions { get; set; } = new List<Transaction>();
 
 

@@ -63,11 +63,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\InventoryIdToTextConverter.cs" />
+    <Compile Include="Dialogs\CreateDatasourceWindow.xaml.cs">
+      <DependentUpon>CreateDatasourceWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\ImportInventoryWindow.xaml.cs">
       <DependentUpon>ImportInventoryWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\InventoryWindow.xaml.cs">
       <DependentUpon>InventoryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SelectDatasourceWindow.xaml.cs">
+      <DependentUpon>SelectDatasourceWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\SelecteInventoryWindow.xaml.cs">
       <DependentUpon>SelecteInventoryWindow.xaml</DependentUpon>
@@ -80,14 +86,24 @@
     <Compile Include="Models\Inventory.cs" />
     <Compile Include="Services\DataService.cs" />
     <Compile Include="Services\IDataService.cs" />
+    <Compile Include="Services\IInventoryService.cs" />
+    <Compile Include="Services\InventoryService.cs" />
     <Compile Include="StdClass.cs" />
     <Compile Include="ViewModels\InventoryWindowViewModel.cs" />
     <Compile Include="ViewModels\TransactionWindowViewModel.cs" />
+    <Page Include="Dialogs\CreateDatasourceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\ImportInventoryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\InventoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\SelectDatasourceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

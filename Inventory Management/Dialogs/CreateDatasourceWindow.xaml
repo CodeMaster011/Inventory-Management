@@ -1,0 +1,44 @@
+﻿<Window x:Class="Inventory_Management.Dialogs.CreateDatasourceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Inventory_Management.Dialogs"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        ui:WindowHelper.UseModernWindowStyle="True"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        Title="Create Datasource" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border BorderThickness="0 0 0 2" BorderBrush="{DynamicResource SystemAccentColorLight3Brush}" Margin="0 0 0 10" Padding="0 0 0 3">
+            <TextBlock Text="Create Datasource" Style="{DynamicResource TitleTextBlockStyle}" 
+                   Foreground="{DynamicResource SystemAccentColorLight3Brush}"/>
+        </Border>
+        <ScrollViewer Grid.Row="2">
+            <WrapPanel Orientation="Horizontal">
+                <DatePicker
+                    x:Name="fromDate"
+                    ui:ControlHelper.Header="From Date"
+                    Margin="5"
+                    Width="200" />
+                <DatePicker
+                    x:Name="toDate"
+                    ui:ControlHelper.Header="To Date"
+                    Margin="5"
+                    Width="200" />
+            </WrapPanel>
+        </ScrollViewer>
+        <StackPanel Orientation="Horizontal" Grid.Row="3">
+            <Button Style="{StaticResource AccentButtonStyle}"
+                    Content="Make Datasource"
+                    x:Name="makeDatasourceButton"
+                    Click="makeDatasourceButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

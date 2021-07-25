@@ -28,9 +28,11 @@
         <WrapPanel Grid.Row="1">
             <ui:RadioButtons>
                 <RadioButton x:Name="actualRadioButton"
-                                 Content="Actual"/>
+                                 Content="Actual"
+                             IsChecked="{Binding IsActual}"/>
                 <RadioButton x:Name="portalRadioButton"
-                                 Content="Parly Portal"/>
+                                 Content="Parly Portal"
+                             IsChecked="{Binding IsPortal}"/>
             </ui:RadioButtons>
             <DatePicker
                     SelectedDate="{Binding Transaction.Date}"
@@ -58,30 +60,39 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Vertical"
                         DataContext="{Binding TranscationLine.InventoryId, Converter={StaticResource InventoryIdToTextConverter}}">
-                <TextBlock Text="{Binding Name}" FontSize="14"/>
-                <!--<TextBlock Text="{Binding SubCategory}"/>
-                <TextBlock Text="{Binding Category}"/>
-                <TextBlock Text="{Binding Hsn}"/>
-                <TextBlock Text="{Binding TaxRate}"/>-->
+                <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                <TextBlock>
+                        <Run Text="{Binding Category}"/> <Run Text=":"/> <Run Text="{Binding SubCategory}"/>
+                </TextBlock>
+                <TextBlock>
+                        <Run Text="{Binding Hsn}"/> <Run Text="@"/> <Run Text="{Binding TaxRate}"/>
+                </TextBlock>
             </StackPanel>
-            <TextBox Text="{Binding TranscationLine.Amount}"
-                     ui:ControlHelper.Header="Amount"
-                     Margin="5"
-                     Width="200"
-                     IsReadOnly="{Binding IsReadOnly}"
-                     Grid.Column="2"/>
             <TextBox Text="{Binding TranscationLine.Quantity}"
                      ui:ControlHelper.Header="Quantity"
                      Margin="5"
                      Width="200"
                      IsReadOnly="{Binding IsReadOnly}"
                      Grid.Column="1"/>
-            <Button Content="Add"
-                    Grid.Column="3"
-                    Command="{Binding AddTransactionLineCommand}"/>
+            <TextBox Text="{Binding TranscationLine.Amount}"
+                     ui:ControlHelper.Header="Amount"
+                     Margin="5"
+                     Width="200"
+                     IsReadOnly="{Binding IsReadOnly}"
+                     Grid.Column="2"/>
+            <StackPanel Orientation="Vertical" Grid.Column="3">
+                <Button Content="Add"
+                    Padding="10 5"
+                    x:Name="addTransactionButton"
+                    Click="addTransactionButton_Click" />
+                <Button Content="Reset"
+                    Padding="10 5"
+                    Command="{Binding ResetTransactionLineCommand}"/>
+            </StackPanel>
         </Grid>
         <DataGrid Grid.Row="4"
-                  ItemsSource="{Binding Transaction.Lines}"
+                  x:Name="datagrid"
+                  ItemsSource="{Binding Transaction.Lines, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding TranscationLine, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False"
                   HeadersVisibility="Column"
@@ -93,16 +104,19 @@
                   IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTemplateColumn
-                    Header="Name">
+                    Header="Name"
+                    Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical"
                                         DataContext="{Binding InventoryId, Converter={StaticResource InventoryIdToTextConverter}}">
-                                                <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
-                                                <!--<TextBlock Text="{Binding SubCategory}"/>
-                                <TextBlock Text="{Binding Category}"/>
-                                <TextBlock Text="{Binding Hsn}"/>
-                                <TextBlock Text="{Binding TaxRate}"/>-->
+                                <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                                <TextBlock>
+                                        <Run Text="{Binding Category}"/> <Run Text=":"/> <Run Text="{Binding SubCategory}"/>
+                                </TextBlock>
+                                <TextBlock>
+                                        <Run Text="{Binding Hsn}"/> <Run Text="@"/> <Run Text="{Binding TaxRate}"/>
+                                </TextBlock>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -117,5 +131,21 @@
                     Binding="{Binding Amount}" />
             </DataGrid.Columns>
         </DataGrid>
+        <StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Right" Margin="10 0">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsCreateAllow}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+            <Button Content="Create New"
+                    x:Name="createNewTransactionButton"
+                    Click="createNewTransactionButton_Click"
+                    Style="{StaticResource AccentButtonStyle}"/>
+        </StackPanel>
     </Grid>
 </Window>
