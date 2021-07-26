@@ -85,9 +85,9 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Content=">" ToolTipService.ToolTip="Add to portal also" Margin="2 0" Width="50" Background="White" x:Name="addToPortalButton" Click="addToPortalButton_Click"/>
-                                    <Button Content=">>" ToolTipService.ToolTip="Move to portal" Margin="2 0" Width="50" Background="White" x:Name="moveToPortalButton" Click="moveToPortalButton_Click"/>
-                                    <Button Content="X" ToolTipService.ToolTip="Delete transaction" Margin="2 0" Width="50" Background="White" Foreground="Red" x:Name="deleteInActualButton" Click="deleteInActualButton_Click"/>
+                                    <Button Content=">" ToolTipService.ToolTip="Add to portal also" Margin="2 0" Width="50" Background="{DynamicResource SystemControlBackgroundAltHighBrush}" x:Name="addToPortalButton" Click="addToPortalButton_Click"/>
+                                    <Button Content=">>" ToolTipService.ToolTip="Move to portal" Margin="2 0" Width="50" Background="{DynamicResource SystemControlBackgroundAltHighBrush}" x:Name="moveToPortalButton" Click="moveToPortalButton_Click"/>
+                                    <Button Content="X" ToolTipService.ToolTip="Delete transaction" Margin="2 0" Width="50" Background="{DynamicResource SystemControlBackgroundAltHighBrush}" Foreground="Red" x:Name="deleteInActualButton" Click="deleteInActualButton_Click"/>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -125,9 +125,9 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Content="&lt;" ToolTipService.ToolTip="Add to actual also" Margin="2 0" Width="50" Background="White" x:Name="addToActualButton" Click="addToActualButton_Click"/>
-                                    <Button Content="&lt;&lt;" ToolTipService.ToolTip="Move to actual" Margin="2 0" Width="50" Background="White" x:Name="moveToActualButton" Click="moveToActualButton_Click"/>
-                                    <Button Content="X" ToolTipService.ToolTip="Delete transaction" Margin="2 0" Width="50" Background="White" Foreground="Red" x:Name="deleteInPortalButton" Click="deleteInPortalButton_Click"/>
+                                    <Button Content="&lt;" ToolTipService.ToolTip="Add to actual also" Margin="2 0" Width="50" Background="{DynamicResource SystemControlBackgroundAltHighBrush}" x:Name="addToActualButton" Click="addToActualButton_Click"/>
+                                    <Button Content="&lt;&lt;" ToolTipService.ToolTip="Move to actual" Margin="2 0" Width="50" Background="{DynamicResource SystemControlBackgroundAltHighBrush}" x:Name="moveToActualButton" Click="moveToActualButton_Click"/>
+                                    <Button Content="X" ToolTipService.ToolTip="Delete transaction" Margin="2 0" Width="50" Background="{DynamicResource SystemControlBackgroundAltHighBrush}" Foreground="Red" x:Name="deleteInPortalButton" Click="deleteInPortalButton_Click"/>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

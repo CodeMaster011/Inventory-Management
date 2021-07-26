@@ -76,6 +76,7 @@ namespace Inventory_Management
         private void openData_Click(object sender, RoutedEventArgs e)
         {
             new Dialogs.SelectDatasourceWindow() { Owner = this }.ShowDialog();
+            RefreshDashboardData();
         }
 
         private void exitMenu_Click(object sender, RoutedEventArgs e)
@@ -93,11 +94,13 @@ namespace Inventory_Management
                     IsCreateAllow = true
                 }
             }.ShowDialog();
+            RefreshDashboardData();
         }
 
         private void listInventoryMenu_Click(object sender, RoutedEventArgs e)
         {
             new Dialogs.ListInventoryWindow() { Owner = this }.ShowDialog();
+            RefreshDashboardData();
         }
 
         private void addNewActualTransactionMenu_Click(object sender, RoutedEventArgs e)
@@ -112,6 +115,7 @@ namespace Inventory_Management
                     IsActual = true
                 }
             }.ShowDialog();
+            RefreshDashboardData();
         }
 
         private void listActualTransactionMenu_Click(object sender, RoutedEventArgs e)
@@ -119,6 +123,7 @@ namespace Inventory_Management
             var wind = new Dialogs.ListTransactionsWindow { Owner = this };
             wind.actualRadioButton.IsChecked = true;
             wind.ShowDialog();
+            RefreshDashboardData();
         }
 
         private void addNewPortalTransactionMenu_Click(object sender, RoutedEventArgs e)
@@ -133,6 +138,7 @@ namespace Inventory_Management
                     IsPortal = true
                 }
             }.ShowDialog();
+            RefreshDashboardData();
         }
 
         private void listPortalTransactionMenu_Click(object sender, RoutedEventArgs e)
@@ -140,11 +146,13 @@ namespace Inventory_Management
             var wind = new Dialogs.ListTransactionsWindow { Owner = this };
             wind.portalRadioButton.IsChecked = true;
             wind.ShowDialog();
+            RefreshDashboardData();
         }
 
         private void importMaster_Click(object sender, RoutedEventArgs e)
         {
             new Dialogs.ImportInventoryWindow() { Owner = this }.ShowDialog();
+            RefreshDashboardData();
         }
 
         private async void saveMenu_Click(object sender, RoutedEventArgs e)
@@ -156,16 +164,61 @@ namespace Inventory_Management
         private void invTransactionReportMenu_Click(object sender, RoutedEventArgs e)
         {
             new Reports.InventoryTransactionReportWindow { Owner = this }.ShowDialog();
+            RefreshDashboardData();
         }
 
         private void comparisonReportMenu_Click(object sender, RoutedEventArgs e)
         {
             new Reports.ComparisonWindow { Owner = this }.ShowDialog();
+            RefreshDashboardData();
         }
 
         private void aboutMenu_Click(object sender, RoutedEventArgs e)
         {
             new Dialogs.AboutWindow { Owner = this }.ShowDialog();
+        }
+
+        public void RefreshDashboardData()
+        {
+            var list = new List<DashboardCard>();
+            if (Global.DataSource == null)
+            {
+                list = null;
+                return;
+            }
+
+            list.Add(new DashboardCard
+            {
+                Title = "Inventory",
+                BigText = Global.DataSource.Inventories.Count.ToString(),
+                OpenOnClick = () => listInventoryMenu_Click(null, null)
+            });
+
+            list.Add(new DashboardCard
+            {
+                Title = "Transaction",
+                Subtitle = "Actual",
+                BigText = Global.DataSource.ActualTransactions.Count.ToString(),
+                OpenOnClick = () => listActualTransactionMenu_Click(null, null)
+            });
+
+            list.Add(new DashboardCard
+            {
+                Title = "Transaction",
+                Subtitle = "Portal",
+                BigText = Global.DataSource.PortalTransactions.Count.ToString(),
+                OpenOnClick = () => listPortalTransactionMenu_Click(null, null)
+            });
+
+            dashbordItems.ItemsSource = list;
+        }
+
+        public class DashboardCard : BindableBaseFody
+        {
+            public string Title { get; set; }
+            public string Subtitle { get; set; }
+            public string BigText { get; set; }
+            public Action OpenOnClick { get; set; }
         }
     }
 }

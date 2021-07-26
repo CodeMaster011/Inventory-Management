@@ -9,9 +9,10 @@
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized"
         mc:Ignorable="d"
-        Title="Inventory Management - Suman Karan (Integrity Solution)" Height="500" Width="900">
+        Title="Inventory Management - Suman Karan (Integrity Solution)" Height="600" Width="1000">
     <Grid Margin="5">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -47,12 +48,41 @@
             <MenuItem Header="Report">
                 <MenuItem Header="Inventory Transactions Report" x:Name="invTransactionReportMenu" Click="invTransactionReportMenu_Click"/>
                 <MenuItem Header="Daily Report" IsEnabled="False"/>
+                <MenuItem Header="Monthly Report" IsEnabled="False"/>
                 <MenuItem Header="Comparison Report" x:Name="comparisonReportMenu" Click="comparisonReportMenu_Click"/>
             </MenuItem>
             <MenuItem Header="Help">
                 <MenuItem Header="About" x:Name="aboutMenu" Click="aboutMenu_Click"/>
             </MenuItem>
         </Menu>
+
+        <StackPanel Orientation="Vertical" Grid.Row="2" Margin="10">
+            <Border Background="#303956" HorizontalAlignment="Left" Padding="10">
+                <TextBlock Text="GHOSH TRADING ZONE" Foreground="#c0c6db"/>
+            </Border>
+        </StackPanel>
+
+        <ItemsControl x:Name="dashbordItems" Grid.Row="3" Padding="20" Margin="0 20">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="10" Padding="20" MinWidth="250" Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                        <Border.BitmapEffect>
+                            <DropShadowBitmapEffect ShadowDepth="1" Opacity="0.2"/>
+                        </Border.BitmapEffect>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding Title}" FontSize="20"/>
+                            <TextBlock Text="{Binding Subtitle}" FontSize="12"/>
+                            <TextBlock Text="{Binding BigText}" FontSize="44" FontWeight="Light" Margin="0 20"/>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
         
         
         <ui:SimpleStackPanel Margin="12" Spacing="24" Orientation="Horizontal" Visibility="Collapsed">
