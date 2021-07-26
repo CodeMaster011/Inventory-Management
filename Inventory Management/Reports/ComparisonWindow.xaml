@@ -1,0 +1,85 @@
+﻿<Window x:Class="Inventory_Management.Reports.ComparisonWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Inventory_Management.Reports"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        ui:WindowHelper.UseModernWindowStyle="True"
+        WindowStartupLocation="CenterOwner"
+        WindowState="Maximized"
+        mc:Ignorable="d"
+        Title="Comparison Report" Height="450" Width="800">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border BorderThickness="0 0 0 2" BorderBrush="{DynamicResource SystemAccentColorLight3Brush}" Margin="0 0 0 10" Padding="0 0 0 3">
+            <TextBlock Text="Comparison Report" Style="{DynamicResource TitleTextBlockStyle}" 
+                   Foreground="{DynamicResource SystemAccentColorLight3Brush}"/>
+        </Border>
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <Button Content="Add Transaction"
+                    x:Name="addTransactionButton"
+                    Click="addTransactionButton_Click"
+                    Margin="5"/>
+            <Button Content="Add Inventory"
+                    x:Name="addInventoryButton"
+                    Click="addInventoryButton_Click"
+                    Margin="5"/>
+        </StackPanel>
+        <DataGrid
+            x:Name="datagrid"
+            AutoGenerateColumns="False"
+            HeadersVisibility="Column"
+            GridLinesVisibility="Horizontal"
+            VirtualizingPanel.VirtualizationMode="Recycling"
+            SelectionMode="Single"
+            CanUserAddRows="False"
+            SelectionUnit="FullRow"
+            IsReadOnly="True"
+            Grid.Row="2">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Name" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock VerticalAlignment="Center">
+                                <Run Text="{Binding Inventory.Category}"/> <Run Text="{Binding Inventory.SubCategory}"/> <Run Text="{Binding Inventory.Name}"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn
+                    Header="Actual Quantity"
+                    MinWidth="105"
+                    Binding="{Binding ActualBalance.Quantity,StringFormat='n2'}"/>
+                <DataGridTextColumn
+                    Header="Portal Quantity"
+                    MinWidth="105"
+                    Binding="{Binding PortalBalance.Quantity,StringFormat='n2'}"/>
+                <DataGridTextColumn
+                    Header="Difference Quantity"
+                    MinWidth="105"
+                    Binding="{Binding Difference.Quantity,StringFormat='n2'}"/>
+
+                <DataGridTextColumn
+                    Header="Actual Amount"
+                    MinWidth="105"
+                    Binding="{Binding ActualBalance.Amount,StringFormat='c'}"/>
+                <DataGridTextColumn
+                    Header="Portal Amount"
+                    MinWidth="105"
+                    Binding="{Binding PortalBalance.Amount,StringFormat='c'}"/>
+                <DataGridTextColumn
+                    Header="Difference Amount"
+                    MinWidth="105"
+                    Binding="{Binding Difference.Amount,StringFormat='c'}"/>
+            </DataGrid.Columns>
+            
+        </DataGrid>
+    </Grid>
+</Window>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,15 @@ namespace Inventory_Management
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            if (MessageBox.Show("Are you sure to exit?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+            {
+                e.Cancel = true;
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -146,6 +156,16 @@ namespace Inventory_Management
         private void invTransactionReportMenu_Click(object sender, RoutedEventArgs e)
         {
             new Reports.InventoryTransactionReportWindow { Owner = this }.ShowDialog();
+        }
+
+        private void comparisonReportMenu_Click(object sender, RoutedEventArgs e)
+        {
+            new Reports.ComparisonWindow { Owner = this }.ShowDialog();
+        }
+
+        private void aboutMenu_Click(object sender, RoutedEventArgs e)
+        {
+            new Dialogs.AboutWindow { Owner = this }.ShowDialog();
         }
     }
 }

@@ -36,7 +36,7 @@ namespace Inventory_Management.Dialogs
             {
                 var source = dataService.GetDataSource(metadata);
                 Global.DataSource = source;
-                MessageBox.Show("Data source successfully changed.");
+                // MessageBox.Show("Data source successfully changed.");
                 Close();
             }
         }

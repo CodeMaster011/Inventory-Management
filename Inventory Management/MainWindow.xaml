@@ -7,47 +7,50 @@
         xmlns:ui="http://schemas.modernwpf.com/2019"
         ui:WindowHelper.UseModernWindowStyle="True"
         WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
         mc:Ignorable="d"
-        Title="Inventory Management" Height="450" Width="800">
-    <Grid>
+        Title="Inventory Management - Suman Karan (Integrity Solution)" Height="500" Width="900">
+    <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Inventory Management" Style="{StaticResource HeaderTextBlockStyle}"  />
+        <TextBlock Text="Inventory Management" Style="{StaticResource HeaderTextBlockStyle}"  Margin="10"/>
         <Menu Grid.Row="1">
             <MenuItem Header="File">
-                <MenuItem Header="Open Source" x:Name="openData" Click="openData_Click"/>
+                <MenuItem Header="Open Source" x:Name="openData" Click="openData_Click" />
                 <MenuItem Header="Disk Save" x:Name="saveMenu" Click="saveMenu_Click"/>
-                <MenuItem Header="Cloud Save" IsEnabled="False"/>
+                <!--<MenuItem Header="Cloud Save" IsEnabled="False"/>-->
                 <Separator/>
                 <MenuItem Header="Import">
-                    <MenuItem Header="Master" x:Name="importMaster" Click="importMaster_Click"/>
+                    <MenuItem Header="Import Master" x:Name="importMaster" Click="importMaster_Click"/>
                 </MenuItem>
                 <Separator/>
                 <MenuItem Header="Exit" x:Name="exitMenu" Click="exitMenu_Click"/>
             </MenuItem>
             <MenuItem Header="Inventory">
-                <MenuItem Header="Add New" x:Name="addNewInventoryMenu" Click="addNewInventoryMenu_Click"/>
-                <MenuItem Header="List" x:Name="listInventoryMenu" Click="listInventoryMenu_Click"/>
+                <MenuItem Header="Add New Inventory" x:Name="addNewInventoryMenu" Click="addNewInventoryMenu_Click"/>
+                <MenuItem Header="List Inventories" x:Name="listInventoryMenu" Click="listInventoryMenu_Click"/>
             </MenuItem>
             <MenuItem Header="Transaction">
                 <MenuItem Header="Actual">
-                    <MenuItem Header="Add New" x:Name="addNewActualTransactionMenu" Click="addNewActualTransactionMenu_Click"/>
-                    <MenuItem Header="List" x:Name="listActualTransactionMenu" Click="listActualTransactionMenu_Click"/>
+                    <MenuItem Header="Add New Transaction" x:Name="addNewActualTransactionMenu" Click="addNewActualTransactionMenu_Click"/>
+                    <MenuItem Header="List Transactions" x:Name="listActualTransactionMenu" Click="listActualTransactionMenu_Click"/>
                 </MenuItem>
                 <MenuItem Header="Partly Portal">
-                    <MenuItem Header="Add New" x:Name="addNewPortalTransactionMenu" Click="addNewPortalTransactionMenu_Click"/>
-                    <MenuItem Header="List" x:Name="listPortalTransactionMenu" Click="listPortalTransactionMenu_Click"/>
+                    <MenuItem Header="Add New Transaction" x:Name="addNewPortalTransactionMenu" Click="addNewPortalTransactionMenu_Click"/>
+                    <MenuItem Header="List Transactions" x:Name="listPortalTransactionMenu" Click="listPortalTransactionMenu_Click"/>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Report">
-                <MenuItem Header="Inventory Transactions" x:Name="invTransactionReportMenu" Click="invTransactionReportMenu_Click"/>
+                <MenuItem Header="Inventory Transactions Report" x:Name="invTransactionReportMenu" Click="invTransactionReportMenu_Click"/>
+                <MenuItem Header="Daily Report" IsEnabled="False"/>
+                <MenuItem Header="Comparison Report" x:Name="comparisonReportMenu" Click="comparisonReportMenu_Click"/>
             </MenuItem>
             <MenuItem Header="Help">
-                <MenuItem Header="About"/>
+                <MenuItem Header="About" x:Name="aboutMenu" Click="aboutMenu_Click"/>
             </MenuItem>
         </Menu>
         

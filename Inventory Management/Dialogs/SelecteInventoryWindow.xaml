@@ -4,11 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Inventory_Management.Dialogs"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        ui:WindowHelper.UseModernWindowStyle="True"
         mc:Ignorable="d"
         WindowStartupLocation="CenterOwner"
         Title="Select Inventory" Height="450" Width="800"
         >
-    <Grid>
+    <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -19,7 +21,12 @@
             <TextBlock Text="Select Inventory" Style="{DynamicResource TitleTextBlockStyle}" 
                    Foreground="{DynamicResource SystemAccentColorLight3Brush}"/>
         </Border>
-        <TextBox x:Name="searchTextbox" TextChanged="searchTextbox_TextChanged" Grid.Row="1" KeyUp="Window_KeyUp"/>
+        <TextBox x:Name="searchTextbox" 
+                 TextChanged="searchTextbox_TextChanged"
+                 Grid.Row="1" 
+                 KeyUp="Window_KeyUp" 
+                 ui:ControlHelper.PlaceholderText="Search inventory category,sub category, name"
+                 Margin="0 0 0 10"/>
         <DataGrid
             x:Name="dataGrid"
             AutoGenerateColumns="False"

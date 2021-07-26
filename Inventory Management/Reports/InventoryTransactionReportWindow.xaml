@@ -7,9 +7,10 @@
         xmlns:ui="http://schemas.modernwpf.com/2019"
         ui:WindowHelper.UseModernWindowStyle="True"
         WindowStartupLocation="CenterOwner"
+        WindowState="Maximized"
         mc:Ignorable="d"
         Title="Inventory Transaction Report" Height="450" Width="800">
-    <Grid>
+    <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -26,7 +27,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock x:Name="invName" Margin="4"/>
+            <TextBlock x:Name="invName" Margin="4" FontSize="18" FontWeight="Bold"/>
             <Button Content="Choose Inventory"
                     x:Name="chooseInventoryButton"
                     Style="{StaticResource AccentButtonStyle}"
@@ -66,6 +67,7 @@
                 SelectionUnit="FullRow"
                 IsReadOnly="True"
                 Grid.Column="0"
+                Margin="5"
                 Grid.Row="1">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Nature"
@@ -73,6 +75,7 @@
                     <DataGridTextColumn Header="Date"
                                     Binding="{Binding Transaction.Date, StringFormat='dd MMM, yyyy'}"/>
                     <DataGridTextColumn Header="Remarks"
+                                        Width="*"
                                     Binding="{Binding Transaction.Remarks}"/>
                     <DataGridTextColumn Header="Quantity"
                                     Binding="{Binding Line.Quantity}"/>
@@ -104,6 +107,7 @@
                 SelectionUnit="FullRow"
                 IsReadOnly="True"
                 Grid.Column="2"
+                Margin="5"
                 Grid.Row="1">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Nature"
@@ -111,16 +115,28 @@
                     <DataGridTextColumn Header="Date"
                                     Binding="{Binding Transaction.Date, StringFormat='dd MMM, yyyy'}"/>
                     <DataGridTextColumn Header="Remarks"
-                                    Binding="{Binding Transaction.Remarks}"/>
+                                    Binding="{Binding Transaction.Remarks}"
+                                        Width="*"/>
                     <DataGridTextColumn Header="Quantity"
                                     Binding="{Binding Line.Quantity}"/>
                     <DataGridTextColumn Header="Amount"
                                     Binding="{Binding Line.Amount}"/>
+                    <DataGridTemplateColumn Header="Manage">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="&lt;" ToolTipService.ToolTip="Add to actual also" Margin="2 0" Width="50" Background="White" x:Name="addToActualButton" Click="addToActualButton_Click"/>
+                                    <Button Content="&lt;&lt;" ToolTipService.ToolTip="Move to actual" Margin="2 0" Width="50" Background="White" x:Name="moveToActualButton" Click="moveToActualButton_Click"/>
+                                    <Button Content="X" ToolTipService.ToolTip="Delete transaction" Margin="2 0" Width="50" Background="White" Foreground="Red" x:Name="deleteInPortalButton" Click="deleteInPortalButton_Click"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
 
-            <TextBlock Text="Actual Transaction" Grid.Column="0" Padding="5" x:Name="actualTransactionText"/>
-            <TextBlock Text="Portal Transaction" Grid.Column="2" Padding="5" x:Name="portalTransactionText"/>
+            <TextBlock Text="Actual Transaction" Grid.Column="0" Padding="5" x:Name="actualTransactionText" FontSize="18"/>
+            <TextBlock Text="Portal Transaction" Grid.Column="2" Padding="5" x:Name="portalTransactionText" FontSize="18"/>
         </Grid>
         
     </Grid>

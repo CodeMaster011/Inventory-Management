@@ -64,6 +64,9 @@
     </ApplicationDefinition>
     <Compile Include="Converters\BoolInversionConverter.cs" />
     <Compile Include="Converters\InventoryIdToTextConverter.cs" />
+    <Compile Include="Dialogs\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\CreateDatasourceWindow.xaml.cs">
       <DependentUpon>CreateDatasourceWindow.xaml</DependentUpon>
     </Compile>
@@ -91,6 +94,12 @@
     <Compile Include="Global.cs" />
     <Compile Include="IServices.cs" />
     <Compile Include="Models\Inventory.cs" />
+    <Compile Include="Reports\ComparisonWindow.xaml.cs">
+      <DependentUpon>ComparisonWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\DailyReportWindow.xaml.cs">
+      <DependentUpon>DailyReportWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Reports\InventoryTransactionReportWindow.xaml.cs">
       <DependentUpon>InventoryTransactionReportWindow.xaml</DependentUpon>
     </Compile>
@@ -101,6 +110,10 @@
     <Compile Include="StdClass.cs" />
     <Compile Include="ViewModels\InventoryWindowViewModel.cs" />
     <Compile Include="ViewModels\TransactionWindowViewModel.cs" />
+    <Page Include="Dialogs\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\CreateDatasourceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -145,6 +158,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Reports\ComparisonWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reports\DailyReportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Reports\InventoryTransactionReportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

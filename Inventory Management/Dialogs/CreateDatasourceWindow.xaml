@@ -7,9 +7,10 @@
         xmlns:ui="http://schemas.modernwpf.com/2019"
         ui:WindowHelper.UseModernWindowStyle="True"
         WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
         mc:Ignorable="d"
-        Title="Create Datasource" Height="450" Width="800">
-    <Grid>
+        Title="Create Datasource" Height="400" Width="800">
+    <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -34,11 +35,12 @@
                     Width="200" />
             </WrapPanel>
         </ScrollViewer>
-        <StackPanel Orientation="Horizontal" Grid.Row="3">
+        <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Right">
             <Button Style="{StaticResource AccentButtonStyle}"
                     Content="Make Datasource"
                     x:Name="makeDatasourceButton"
-                    Click="makeDatasourceButton_Click"/>
+                    Click="makeDatasourceButton_Click"
+                    Padding="10"/>
         </StackPanel>
     </Grid>
 </Window>

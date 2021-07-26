@@ -7,9 +7,10 @@
         xmlns:ui="http://schemas.modernwpf.com/2019"
         ui:WindowHelper.UseModernWindowStyle="True"
         WindowStartupLocation="CenterOwner"
+        WindowState="Maximized"
         mc:Ignorable="d"
         Title="List Transactions" Height="450" Width="800">
-    <Grid>
+    <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -20,8 +21,8 @@
             <TextBlock Text="List Transactions" Style="{DynamicResource TitleTextBlockStyle}" 
                    Foreground="{DynamicResource SystemAccentColorLight3Brush}"/>
         </Border>
-        <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <ui:RadioButtons>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0 0 0 10">
+            <ui:RadioButtons MaxColumns="2" Header="Mode">
                 <RadioButton x:Name="actualRadioButton"
                              Content="Actual"
                              Checked="actualRadioButton_Checked"/>
@@ -44,8 +45,10 @@
             Grid.Row="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nature"
+                                    MinWidth="105"
                                     Binding="{Binding Nature}"/>
                 <DataGridTextColumn Header="Date"
+                                    MinWidth="105"
                                     Binding="{Binding Date, StringFormat='dd MMM, yyyy'}"/>
                 <DataGridTextColumn Header="Remarks"
                                     Width="*"

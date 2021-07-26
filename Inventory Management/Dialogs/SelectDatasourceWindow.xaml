@@ -7,9 +7,10 @@
         xmlns:ui="http://schemas.modernwpf.com/2019"
         ui:WindowHelper.UseModernWindowStyle="True"
         WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
         mc:Ignorable="d"
-        Title="Select Datasource" Height="450" Width="800">
-    <Grid>
+        Title="Select Datasource" Height="500" Width="900">
+    <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -20,10 +21,10 @@
             <TextBlock Text="Select Datasource" Style="{DynamicResource TitleTextBlockStyle}" 
                    Foreground="{DynamicResource SystemAccentColorLight3Brush}"/>
         </Border>
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0 5">
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0 10">
             <Button Content="Add New Source"
                     x:Name="addNewSourceButton"
-                    Click="addNewSourceButton_Click"/>
+                    Click="addNewSourceButton_Click" />
         </StackPanel>
         <DataGrid x:Name="datagrid"
                   AutoGenerateColumns="False"

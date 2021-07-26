@@ -7,16 +7,17 @@
         xmlns:ui="http://schemas.modernwpf.com/2019"
         ui:WindowHelper.UseModernWindowStyle="True"
         WindowStartupLocation="CenterOwner"
+        WindowState="Maximized"
         mc:Ignorable="d"
-        Title="ListInventoryWindow" Height="450" Width="800">
-    <Grid>
+        Title="List Inventories" Height="500" Width="900">
+    <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Border BorderThickness="0 0 0 2" BorderBrush="{DynamicResource SystemAccentColorLight3Brush}" Margin="0 0 0 10" Padding="0 0 0 3">
-            <TextBlock Text="Import Inventory" Style="{DynamicResource TitleTextBlockStyle}" 
+            <TextBlock Text="List Inventories" Style="{DynamicResource TitleTextBlockStyle}" 
                    Foreground="{DynamicResource SystemAccentColorLight3Brush}"/>
         </Border>
         <DataGrid
