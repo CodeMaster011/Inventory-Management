@@ -9,7 +9,7 @@
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized"
         mc:Ignorable="d"
-        Title="Inventory Management - Suman Karan (Integrity Solution)" Height="600" Width="1000">
+        Title="Inventory Management - Suman Karan (Integrity Solution)" Height="600" Width="1000" Icon="Res/Images/icon.png">
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -18,7 +18,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Inventory Management" Style="{StaticResource HeaderTextBlockStyle}"  Margin="10"/>
+        <TextBlock Text="Inventory Management" Style="{StaticResource HeaderTextBlockStyle}"  Margin="10" FontFamily="{StaticResource Comfortaa}"/>
         <Menu Grid.Row="1">
             <MenuItem Header="File">
                 <MenuItem Header="Open Source" x:Name="openData" Click="openData_Click" />
@@ -83,6 +83,14 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
+
+        <Grid HorizontalAlignment="Right" Grid.RowSpan="5" VerticalAlignment="Top" Margin="0 0 200 0" Panel.ZIndex="-10">
+            <StackPanel Orientation="Horizontal" Opacity="0.5">
+                <Border Width="30" Height="200" Background="#c54b8c" CornerRadius="15" Margin="0 -200 0 0"/>
+                <Border Width="30" Height="200" Background="#fbca1b" CornerRadius="15" Margin="10 -50 0 0"/>
+                <Border Width="30" Height="200" Background="#68aa55" CornerRadius="15" Margin="10 -300 0 0"/>
+            </StackPanel>
+        </Grid>
         
         
         <ui:SimpleStackPanel Margin="12" Spacing="24" Orientation="Horizontal" Visibility="Collapsed">

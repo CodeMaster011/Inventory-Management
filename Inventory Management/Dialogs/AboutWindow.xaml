@@ -17,10 +17,11 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Border BorderThickness="0 0 0 2" BorderBrush="{DynamicResource SystemAccentColorLight3Brush}" Margin="0 0 0 10" Padding="0 0 0 3">
+        <Border BorderThickness="0 0 0 0" BorderBrush="{DynamicResource SystemAccentColorLight3Brush}" Margin="0 0 0 10" Padding="0 0 0 3">
             <TextBlock Text="Inventory Management" Style="{DynamicResource TitleTextBlockStyle}" 
                        FontSize="32"
                        Margin="0 15"
+                       FontFamily="{StaticResource Comfortaa}"
                    Foreground="{DynamicResource SystemAccentColorLight3Brush}"/>
         </Border>
         <StackPanel Orientation="Vertical" Grid.Row="1" Margin="0 10">
@@ -34,5 +35,13 @@
                 TextWrapping="Wrap"
                 Text="Warning: Unauthorized reproduction or distribution of this program, or any portion of it, may result in severe civil and criminal penalties, and will be prosecuted to the maximum extent possible under the law."/>
         </StackPanel>
+
+        <Grid HorizontalAlignment="Right" Grid.RowSpan="5" VerticalAlignment="Top" Margin="0 0 100 0" Panel.ZIndex="-10">
+            <StackPanel Orientation="Horizontal" Opacity="0.5">
+                <Border Width="30" Height="200" Background="#c54b8c" CornerRadius="15" Margin="0 -200 0 0"/>
+                <Border Width="30" Height="200" Background="#fbca1b" CornerRadius="15" Margin="10 -50 0 0"/>
+                <Border Width="30" Height="200" Background="#68aa55" CornerRadius="15" Margin="10 -300 0 0"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

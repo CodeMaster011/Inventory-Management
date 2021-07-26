@@ -39,11 +39,11 @@
                     Binding="{Binding Category}" />
                 <DataGridTextColumn
                     Header="Sub Category"
-                    Width="105"
+                    Width="150"
                     Binding="{Binding SubCategory}" />
                 <DataGridTextColumn
                     Header="Name"
-                    Width="105"
+                    Width="*"
                     Binding="{Binding Name}" />
                 <DataGridTextColumn
                     Header="HSN"

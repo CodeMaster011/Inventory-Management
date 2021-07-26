@@ -172,10 +172,23 @@
                 </Style>
             </StackPanel.Style>
             <Button Content="Create New"
+                    MinWidth="200"
+                    Padding="5 10"
                     x:Name="createNewTransactionButton"
                     Click="createNewTransactionButton_Click"
                     IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInversionConverter}}"
                     Style="{StaticResource AccentButtonStyle}"/>
         </StackPanel>
+
+        <Grid HorizontalAlignment="Left" Grid.RowSpan="10" VerticalAlignment="Bottom" Margin="30 0 0 -50" Panel.ZIndex="-10">
+            <StackPanel Orientation="Horizontal" Opacity="0.5">
+                <StackPanel.RenderTransform>
+                    <RotateTransform Angle="-45"/>
+                </StackPanel.RenderTransform>
+                <Border Width="30" Height="250" Background="#c54b8c" CornerRadius="15" Margin="0 -200 0 0"/>
+                <Border Width="30" Height="250" Background="#fbca1b" CornerRadius="15" Margin="10 -50 0 0"/>
+                <Border Width="30" Height="250" Background="#68aa55" CornerRadius="15" Margin="10 -300 0 0"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
