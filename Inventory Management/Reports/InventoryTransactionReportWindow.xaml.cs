@@ -37,18 +37,32 @@ namespace Inventory_Management.Reports
             if (selecteInventory.Inventory != null)
             {
                 Inventory = selecteInventory.Inventory;
+                RefershViewData();
+                //dataGridActual.ItemsSource = GetInventoryTransactions(Inventory.Id, Global.DataSource.ActualTransactions);
+                //dataGridPortal.ItemsSource = GetInventoryTransactions(Inventory.Id, Global.DataSource.PortalTransactions);
 
-                dataGridActual.ItemsSource = GetInventoryTransactions(Inventory.Id, Global.DataSource.ActualTransactions);
-                dataGridPortal.ItemsSource = GetInventoryTransactions(Inventory.Id, Global.DataSource.PortalTransactions);
-
-                invName.Text = $"{Inventory.Category}-{Inventory.SubCategory}-{Inventory.Name}";
+                //invName.Text = $"{Inventory.Category}-{Inventory.SubCategory}-{Inventory.Name}";
                 
-                var inventoryService = Global.Services.GetServiceHard<IInventoryService>();
+                //var inventoryService = Global.Services.GetServiceHard<IInventoryService>();
 
-                actualTransactionText.Text = $"Actual Transaction\n{inventoryService.CalculateClosingQuantity(Inventory.Id, inventoryService.GetOpeningQuantity(Inventory.Id, Global.DataSource.ActualOpening).GetValueOrDefault(0), Global.DataSource.ActualTransactions)}";
-                portalTransactionText.Text = $"Portal Transaction\n{inventoryService.CalculateClosingQuantity(Inventory.Id, inventoryService.GetOpeningQuantity(Inventory.Id, Global.DataSource.PortalOpening).GetValueOrDefault(0), Global.DataSource.PortalTransactions)}";
+                //actualTransactionText.Text = $"Actual Transaction\n{inventoryService.CalculateClosingQuantity(Inventory.Id, inventoryService.GetOpeningQuantity(Inventory.Id, Global.DataSource.ActualOpening).GetValueOrDefault(0), Global.DataSource.ActualTransactions)}";
+                //portalTransactionText.Text = $"Portal Transaction\n{inventoryService.CalculateClosingQuantity(Inventory.Id, inventoryService.GetOpeningQuantity(Inventory.Id, Global.DataSource.PortalOpening).GetValueOrDefault(0), Global.DataSource.PortalTransactions)}";
             }
         }
+
+        private void RefershViewData()
+        {
+            dataGridActual.ItemsSource = GetInventoryTransactions(Inventory.Id, Global.DataSource.ActualTransactions);
+            dataGridPortal.ItemsSource = GetInventoryTransactions(Inventory.Id, Global.DataSource.PortalTransactions);
+
+            invName.Text = $"{Inventory.Category}-{Inventory.SubCategory}-{Inventory.Name}";
+
+            var inventoryService = Global.Services.GetServiceHard<IInventoryService>();
+
+            actualTransactionText.Text = $"Actual Transaction\n{inventoryService.CalculateClosingQuantity(Inventory.Id, inventoryService.GetOpeningQuantity(Inventory.Id, Global.DataSource.ActualOpening).GetValueOrDefault(0), Global.DataSource.ActualTransactions)}";
+            portalTransactionText.Text = $"Portal Transaction\n{inventoryService.CalculateClosingQuantity(Inventory.Id, inventoryService.GetOpeningQuantity(Inventory.Id, Global.DataSource.PortalOpening).GetValueOrDefault(0), Global.DataSource.PortalTransactions)}";
+        }
+
 
         private List<InventoryTransaction> GetInventoryTransactions(string id, IEnumerable<Transaction> transactions)
         {
@@ -72,12 +86,90 @@ namespace Inventory_Management.Reports
 
         private void dataGridActual_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            if (dataGridActual.SelectedItem is Transaction transaction)
+            {
+                new Dialogs.TransactionWindow()
+                {
+                    Owner = this,
+                    DataContext = new ViewModels.TransactionWindowViewModel
+                    {
+                        Transaction = transaction,
+                        IsReadOnly = false,
+                        IsCreateAllow = false,
+                        IsActual = true,
+                        IsPortal = false
+                    }
+                }.ShowDialog();
+            }
         }
 
         private void dataGridPortal_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (dataGridPortal.SelectedItem is Transaction transaction)
+            {
+                new Dialogs.TransactionWindow()
+                {
+                    Owner = this,
+                    DataContext = new ViewModels.TransactionWindowViewModel
+                    {
+                        Transaction = transaction,
+                        IsReadOnly = false,
+                        IsCreateAllow = false,
+                        IsActual = false,
+                        IsPortal = true
+                    }
+                }.ShowDialog();
+            }
+        }
 
+        private void addToPortalButton_Click(object sender, RoutedEventArgs e)
+        {
+            if ((sender as Button)?.DataContext is InventoryTransaction inventoryTransaction)
+            {
+                var transaction = inventoryTransaction.Transaction.Clone();
+                // transaction.Id = Guid.NewGuid().ToString("n");
+                Global.DataSource.PortalTransactions.Add(transaction);
+                RefershViewData();
+            }
+        }
+
+        private async void saveButton_Click(object sender, RoutedEventArgs e)
+        {
+            await Global.DataSource.Save();
+            MessageBox.Show("Save succefull", "Save");
+        }
+
+        private void moveToPortalButton_Click(object sender, RoutedEventArgs e)
+        {
+            if ((sender as Button)?.DataContext is InventoryTransaction inventoryTransaction)
+            {
+                if (Global.DataSource.ActualTransactions.Remove(inventoryTransaction.Transaction))
+                {
+                    var transaction = inventoryTransaction.Transaction.Clone();
+                    // transaction.Id = Guid.NewGuid().ToString("n");
+                    Global.DataSource.PortalTransactions.Add(transaction);
+                    RefershViewData();
+                }else
+                {
+                    MessageBox.Show("Failed to removed", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private void deleteInActualButton_Click(object sender, RoutedEventArgs e)
+        {
+            if ((sender as Button)?.DataContext is InventoryTransaction inventoryTransaction)
+            {
+                if (Global.DataSource.ActualTransactions.Remove(inventoryTransaction.Transaction))
+                {
+                    MessageBox.Show("Removed succesfully", "Success");
+                }
+                else
+                {
+                    MessageBox.Show("Failed to removed", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                RefershViewData();
+            }
         }
     }
 }

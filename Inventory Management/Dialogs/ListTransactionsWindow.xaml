@@ -48,6 +48,7 @@
                 <DataGridTextColumn Header="Date"
                                     Binding="{Binding Date, StringFormat='dd MMM, yyyy'}"/>
                 <DataGridTextColumn Header="Remarks"
+                                    Width="*"
                                     Binding="{Binding Remarks}"/>
             </DataGrid.Columns>
         </DataGrid>
