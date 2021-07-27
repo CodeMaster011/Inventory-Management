@@ -66,6 +66,14 @@ namespace Inventory_Management.ViewModels
                 MessageBox.Show("Transaction does not have any mode.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            foreach (var item in Transaction.Lines)
+            {
+                if(item.Amount.GetValueOrDefault(0) < 0 || item.Quantity.GetValueOrDefault(0) < 0)
+                {
+                    MessageBox.Show("Transaction items can not have negative values in quantity or amount.");
+                    return;
+                }
+            }
             if(IsPortal)
                 Global.DataSource.PortalTransactions.Add(Transaction.Clone());
             else if (IsActual)
