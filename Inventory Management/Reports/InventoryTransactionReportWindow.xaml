@@ -78,9 +78,9 @@
                                         Width="*"
                                     Binding="{Binding Transaction.Remarks}"/>
                     <DataGridTextColumn Header="Quantity"
-                                    Binding="{Binding Line.Quantity}"/>
+                                    Binding="{Binding Line.Quantity,StringFormat=n2}"/>
                     <DataGridTextColumn Header="Amount"
-                                    Binding="{Binding Line.Amount}"/>
+                                    Binding="{Binding Line.Amount,StringFormat=c}"/>
                     <DataGridTemplateColumn Header="Manage">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -118,9 +118,9 @@
                                     Binding="{Binding Transaction.Remarks}"
                                         Width="*"/>
                     <DataGridTextColumn Header="Quantity"
-                                    Binding="{Binding Line.Quantity}"/>
+                                    Binding="{Binding Line.Quantity,StringFormat=n2}"/>
                     <DataGridTextColumn Header="Amount"
-                                    Binding="{Binding Line.Amount}"/>
+                                    Binding="{Binding Line.Amount,StringFormat=c}"/>
                     <DataGridTemplateColumn Header="Manage">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

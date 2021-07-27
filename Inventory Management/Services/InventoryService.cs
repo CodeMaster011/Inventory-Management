@@ -15,8 +15,8 @@ namespace Inventory_Management.Services
             var dic = balances.Select(b =>
             {
                 var newBalance = b.Clone();
-                newBalance.Amount = 0;
-                newBalance.Quantity = 0;
+                newBalance.Amount = newBalance.Amount ?? 0d;
+                newBalance.Quantity = newBalance.Quantity ?? 0d;
                 newBalance.OnDate = calculatedOn;
                 return newBalance;
             }).ToDictionary(b => b.InventoryId);

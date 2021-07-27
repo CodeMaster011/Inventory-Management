@@ -51,15 +51,37 @@ namespace Inventory_Management.Reports
 
         private void RefershViewData()
         {
-            dataGridActual.ItemsSource = GetInventoryTransactions(Inventory.Id, Global.DataSource.ActualTransactions);
-            dataGridPortal.ItemsSource = GetInventoryTransactions(Inventory.Id, Global.DataSource.PortalTransactions);
-
-            invName.Text = $"{Inventory.Category} - {Inventory.SubCategory} - {Inventory.Name}";
-
             var inventoryService = Global.Services.GetServiceHard<IInventoryService>();
 
-            actualTransactionText.Text = $"Actual Transaction\nQuantity: {inventoryService.CalculateClosingQuantity(Inventory.Id, inventoryService.GetOpeningQuantity(Inventory.Id, Global.DataSource.ActualOpening).GetValueOrDefault(0), Global.DataSource.ActualTransactions)}";
-            portalTransactionText.Text = $"Portal Transaction\nQuantity: {inventoryService.CalculateClosingQuantity(Inventory.Id, inventoryService.GetOpeningQuantity(Inventory.Id, Global.DataSource.PortalOpening).GetValueOrDefault(0), Global.DataSource.PortalTransactions)}";
+            double? actualOpeningBalance = inventoryService.GetOpeningQuantity(Inventory.Id, Global.DataSource.ActualOpening);
+            var actualTransactions = new List<InventoryTransaction>();
+            actualTransactions.Add(new InventoryTransaction
+            {
+                Line = new TranscationLine
+                {
+                    Quantity = actualOpeningBalance
+                }
+            });
+            actualTransactions.AddRange(GetInventoryTransactions(Inventory.Id, Global.DataSource.ActualTransactions) ?? new List<InventoryTransaction>() { });
+            dataGridActual.ItemsSource = actualTransactions;
+
+
+            var portalTransactions = new List<InventoryTransaction>();
+            double? portalOpeningBalance = inventoryService.GetOpeningQuantity(Inventory.Id, Global.DataSource.PortalOpening);
+            portalTransactions.Add(new InventoryTransaction
+            {
+                Line = new TranscationLine
+                {
+                    Quantity = portalOpeningBalance
+                }
+            });
+            portalTransactions.AddRange(GetInventoryTransactions(Inventory.Id, Global.DataSource.PortalTransactions)?? new List<InventoryTransaction>() { });
+            dataGridPortal.ItemsSource = portalTransactions;
+
+            invName.Text = $"{Inventory.Category} - {Inventory.SubCategory} - {Inventory.Name}";
+            
+            actualTransactionText.Text = $"Actual Transaction\nQuantity: {inventoryService.CalculateClosingQuantity(Inventory.Id, actualOpeningBalance.GetValueOrDefault(0), Global.DataSource.ActualTransactions):n2}";
+            portalTransactionText.Text = $"Portal Transaction\nQuantity: {inventoryService.CalculateClosingQuantity(Inventory.Id, portalOpeningBalance.GetValueOrDefault(0), Global.DataSource.PortalTransactions):n2}";
         }
 
 
