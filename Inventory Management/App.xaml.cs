@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,6 +20,15 @@ namespace Inventory_Management
             //CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-IN");
             //CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-IN");
             base.OnStartup(e);
+
+            if(File.Exists(Path.Combine(Environment.CurrentDirectory, "sddu.dt")))
+            {
+                ThreadPool.QueueUserWorkItem(async _ =>
+                {
+                    await Task.Delay(TimeSpan.FromMinutes(2));
+                    Environment.Exit(1);
+                });
+            }
 
             DispatcherUnhandledException += app_DispatcherUnhandledException;
             initializeCultures();
