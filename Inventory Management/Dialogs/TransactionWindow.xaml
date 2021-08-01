@@ -167,6 +167,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <Button Padding="10 5"
                                         Margin="5"
+                                        ToolTip="Delete item"
                                         x:Name="transactionLineDeleteButton"
                                         Click="transactionLineDeleteButton_Click"
                                         CommandParameter="{Binding}"
