@@ -10,6 +10,7 @@
         WindowStartupLocation="CenterOwner"
         WindowState="Maximized"
         mc:Ignorable="d"
+        x:Name="window"
         Title="Transaction" Height="450" Width="800">
     <Window.Resources>
         <convt:InventoryIdToTextConverter x:Key="InventoryIdToTextConverter"/>
@@ -158,6 +159,26 @@
                     Header="Amount"
                     Width="105"
                     Binding="{Binding Amount}" />
+                <DataGridTemplateColumn
+                    Header="Action"
+                    Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Padding="10 5"
+                                        Margin="5"
+                                        ToolTip="Delete item"
+                                        x:Name="transactionLineDeleteButton"
+                                        Click="transactionLineDeleteButton_Click"
+                                        CommandParameter="{Binding}"
+                                        IsEnabled="{Binding DataContext.IsReadOnly, ElementName=window,Converter={StaticResource BoolInversionConverter}}">
+                                    <TextBlock Text="&#xf2ed;"
+                                               FontFamily="{StaticResource FontAwesome}"/>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Right" Margin="10 0">

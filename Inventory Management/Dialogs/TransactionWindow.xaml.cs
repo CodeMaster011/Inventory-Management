@@ -71,5 +71,20 @@ namespace Inventory_Management.Dialogs
             datagrid.ItemsSource = vm.Transaction.Lines;
             datePicker.Focus();
         }
+
+        private void transactionLineDeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button)
+            {
+                var vm = this.DataContext as TransactionWindowViewModel;
+                var line = button.CommandParameter as TranscationLine;
+                var inventory = Global.DataSource.Inventories.Find(i => i.Id == line.InventoryId);
+                if (MessageBox.Show($"Are you sure to remove item,\n{inventory.Name}?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    return;
+                vm.RemoveTransactionLineCommand.Execute(line);
+                datagrid.ItemsSource = null;
+                datagrid.ItemsSource = vm.Transaction.Lines;
+            }
+        }
     }
 }
