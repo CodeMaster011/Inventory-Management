@@ -77,7 +77,11 @@ namespace Inventory_Management.Dialogs
             if (sender is Button button)
             {
                 var vm = this.DataContext as TransactionWindowViewModel;
-                vm.RemoveTransactionLineCommand.Execute(button.CommandParameter);
+                var line = button.CommandParameter as TranscationLine;
+                var inventory = Global.DataSource.Inventories.Find(i => i.Id == line.InventoryId);
+                if (MessageBox.Show($"Are you sure to remove item,\n{inventory.Name}?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    return;
+                vm.RemoveTransactionLineCommand.Execute(line);
                 datagrid.ItemsSource = null;
                 datagrid.ItemsSource = vm.Transaction.Lines;
             }
