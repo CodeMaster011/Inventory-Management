@@ -71,5 +71,16 @@ namespace Inventory_Management.Dialogs
             datagrid.ItemsSource = vm.Transaction.Lines;
             datePicker.Focus();
         }
+
+        private void transactionLineDeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button)
+            {
+                var vm = this.DataContext as TransactionWindowViewModel;
+                vm.RemoveTransactionLineCommand.Execute(button.CommandParameter);
+                datagrid.ItemsSource = null;
+                datagrid.ItemsSource = vm.Transaction.Lines;
+            }
+        }
     }
 }
