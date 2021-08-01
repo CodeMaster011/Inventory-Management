@@ -229,6 +229,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Res\Fonts\FontAwesome.ttf" />
     <Resource Include="Res\Fonts\Comfortaa.ttf" />
     <None Include="Inventory Management_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">

@@ -1,4 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <FontFamily x:Key="Comfortaa">pack://application;,,,/Res/Fonts/#Comfortaa</FontFamily>
+    <FontFamily x:Key="FontAwesome">pack://application;,,,/Res/Fonts/#Font Awesome 5 Free Solid</FontFamily>
 </ResourceDictionary>

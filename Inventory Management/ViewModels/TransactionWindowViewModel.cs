@@ -20,13 +20,25 @@ namespace Inventory_Management.ViewModels
         public StandardCommand CreateNewCommand { get; set; }
         public StandardCommand AddTransactionLineCommand { get; set; }
         public StandardCommand ResetTransactionLineCommand { get; set; }
+        public StandardCommand RemoveTransactionLineCommand { get; set; }
 
         public TransactionWindowViewModel()
         {
             CreateNewCommand = new StandardCommand(_ => createNew());
             AddTransactionLineCommand = new StandardCommand(_ => addTransactionLine());
             ResetTransactionLineCommand = new StandardCommand(_ => resetTransactionLine());
+            RemoveTransactionLineCommand = new StandardCommand(removeTransactionLineCmd);
             if(!Transaction.Date.HasValue) Transaction.Date = DateTime.Now;
+        }
+
+        private void removeTransactionLineCmd(object obj)
+        {
+            if(obj is TranscationLine line)
+            {
+                Transaction.Lines.Remove(line);
+                NotifyPropertyChanged(nameof(Transaction));
+                Transaction.NotifyPropertyChanged(nameof(Transaction.Lines));
+            }
         }
 
         private void resetTransactionLine()
