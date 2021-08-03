@@ -4,12 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Inventory_Management.Reports"
+        xmlns:convrt="clr-namespace:Inventory_Management.Converters"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         ui:WindowHelper.UseModernWindowStyle="True"
         WindowStartupLocation="CenterOwner"
         WindowState="Maximized"
         mc:Ignorable="d"
         Title="Comparison Report" Height="450" Width="800">
+    <Window.Resources>
+        <convrt:PositiveNegativeColorConverter x:Key="PositiveNegativeColorConverter"/>
+        
+    </Window.Resources>
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -31,6 +36,7 @@
                     Click="addInventoryButton_Click"
                     Margin="5"/>
         </StackPanel>
+        <FrameworkElement x:Name="ProxyElement" Visibility="Collapsed"/>
         <DataGrid
             x:Name="datagrid"
             AutoGenerateColumns="False"
@@ -46,9 +52,16 @@
                 <DataGridTemplateColumn Header="Name" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock VerticalAlignment="Center">
-                                <Run Text="{Binding Inventory.Category}"/> <Run Text="{Binding Inventory.SubCategory}"/> <Run Text="{Binding Inventory.Name}"/>
-                            </TextBlock>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Border Background="{DynamicResource SystemAccentColorLight3Brush}" Padding="5 2" CornerRadius="4" Margin="5 0">
+                                    <TextBlock Text="{Binding Inventory.Category}" Foreground="White"/>
+                                </Border>
+                                <Border Background="{DynamicResource SystemAccentColorLight2Brush}" Padding="5 2" CornerRadius="4" Margin="5 0">
+                                    <TextBlock Text="{Binding Inventory.SubCategory}" Foreground="White" />
+                                </Border>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding Inventory.Name}"/>
+                            </StackPanel>
+                            
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -61,10 +74,32 @@
                     Header="Portal Quantity"
                     MinWidth="105"
                     Binding="{Binding PortalBalance.Quantity,StringFormat='n2'}"/>
-                <DataGridTextColumn
+                <DataGridTemplateColumn
                     Header="Difference Quantity"
-                    MinWidth="105"
-                    Binding="{Binding Difference.Quantity,StringFormat='n2'}"/>
+                    MinWidth="105">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Difference.Quantity,StringFormat='n2'}"
+                                       Padding="5 0"
+                                       VerticalAlignment="Center"
+                                       FontWeight="Bold">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="#458b00"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsNegativeQuantity}" Value="True">
+                                                <Setter Property="Foreground" Value="#ff3333"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Difference.Quantity}" Value="0">
+                                                <Setter Property="Foreground" Value="Gray"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
                 <DataGridTextColumn
                     Header="Actual Amount"
@@ -74,10 +109,32 @@
                     Header="Portal Amount"
                     MinWidth="105"
                     Binding="{Binding PortalBalance.Amount,StringFormat='c'}"/>
-                <DataGridTextColumn
+                <DataGridTemplateColumn
                     Header="Difference Amount"
-                    MinWidth="105"
-                    Binding="{Binding Difference.Amount,StringFormat='c'}"/>
+                    MinWidth="105">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Difference.Amount,StringFormat='n2'}"
+                                       Padding="5 0"
+                                       VerticalAlignment="Center"
+                                       FontWeight="Bold">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="#458b00"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsNegativeAmount}" Value="True">
+                                                <Setter Property="Foreground" Value="#ff3333"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Difference.Amount}" Value="0">
+                                                <Setter Property="Foreground" Value="Gray"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
             
         </DataGrid>

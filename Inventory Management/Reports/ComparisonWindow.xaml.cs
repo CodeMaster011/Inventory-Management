@@ -54,7 +54,9 @@ namespace Inventory_Management.Reports
                     ActualBalance = acClBalance,
                     PortalBalance = poClBalance,
                     Difference = diff,
-                    Action = "Unknown"
+                    Action = "Unknown",
+                    IsNegativeAmount = diff.Amount.GetValueOrDefault(0) < 0,
+                    IsNegativeQuantity = diff.Quantity.GetValueOrDefault(0) < 0,
                 });
             }
             datagrid.ItemsSource = result;
@@ -66,6 +68,8 @@ namespace Inventory_Management.Reports
             public Balance ActualBalance { get; set; }
             public Balance PortalBalance { get; set; }
             public Balance Difference { get; set; }
+            public bool IsNegativeQuantity { get; set; }
+            public bool IsNegativeAmount { get; set; }
             public string Action { get; set; }
         }
 
