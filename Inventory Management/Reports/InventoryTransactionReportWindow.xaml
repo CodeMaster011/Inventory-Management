@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Inventory_Management.Reports"
         xmlns:ui="http://schemas.modernwpf.com/2019"
+        xmlns:controls="clr-namespace:Inventory_Management.CustomControls"
         ui:WindowHelper.UseModernWindowStyle="True"
         WindowStartupLocation="CenterOwner"
         WindowState="Maximized"
@@ -27,7 +28,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock x:Name="invName" Margin="4" FontSize="18" FontWeight="Bold"/>
+            <controls:InventoryControl x:Name="invName" Inventory="{Binding}" Margin="4" FontSize="18" FontWeight="Bold"/>
             <Button Content="Choose Inventory"
                     x:Name="chooseInventoryButton"
                     Style="{StaticResource AccentButtonStyle}"

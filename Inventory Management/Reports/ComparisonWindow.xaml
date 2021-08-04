@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Inventory_Management.Reports"
         xmlns:convrt="clr-namespace:Inventory_Management.Converters"
         xmlns:ui="http://schemas.modernwpf.com/2019"
+        xmlns:controls="clr-namespace:Inventory_Management.CustomControls"
         ui:WindowHelper.UseModernWindowStyle="True"
         WindowStartupLocation="CenterOwner"
         WindowState="Maximized"
@@ -13,7 +14,6 @@
         Title="Comparison Report" Height="450" Width="800">
     <Window.Resources>
         <convrt:PositiveNegativeColorConverter x:Key="PositiveNegativeColorConverter"/>
-        
     </Window.Resources>
     <Grid Margin="5">
         <Grid.RowDefinitions>
@@ -52,16 +52,7 @@
                 <DataGridTemplateColumn Header="Name" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <Border Background="{DynamicResource SystemAccentColorLight3Brush}" Padding="5 2" CornerRadius="4" Margin="5 0">
-                                    <TextBlock Text="{Binding Inventory.Category}" Foreground="White"/>
-                                </Border>
-                                <Border Background="{DynamicResource SystemAccentColorLight2Brush}" Padding="5 2" CornerRadius="4" Margin="5 0">
-                                    <TextBlock Text="{Binding Inventory.SubCategory}" Foreground="White" />
-                                </Border>
-                                <TextBlock VerticalAlignment="Center" Text="{Binding Inventory.Name}"/>
-                            </StackPanel>
-                            
+                            <controls:InventoryControl Inventory="{Binding Inventory, UpdateSourceTrigger=PropertyChanged}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -136,7 +127,6 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
-            
         </DataGrid>
     </Grid>
 </Window>

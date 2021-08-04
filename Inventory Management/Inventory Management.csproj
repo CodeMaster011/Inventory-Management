@@ -101,6 +101,9 @@
     <Compile Include="Converters\BoolInversionConverter.cs" />
     <Compile Include="Converters\InventoryIdToTextConverter.cs" />
     <Compile Include="Converters\PositiveNegativeColorConverter.cs" />
+    <Compile Include="CustomControls\InventoryControl.xaml.cs">
+      <DependentUpon>InventoryControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
@@ -147,6 +150,10 @@
     <Compile Include="StdClass.cs" />
     <Compile Include="ViewModels\InventoryWindowViewModel.cs" />
     <Compile Include="ViewModels\TransactionWindowViewModel.cs" />
+    <Page Include="CustomControls\InventoryControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

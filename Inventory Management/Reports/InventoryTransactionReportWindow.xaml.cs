@@ -78,7 +78,7 @@ namespace Inventory_Management.Reports
             portalTransactions.AddRange(GetInventoryTransactions(Inventory.Id, Global.DataSource.PortalTransactions)?? new List<InventoryTransaction>() { });
             dataGridPortal.ItemsSource = portalTransactions;
 
-            invName.Text = $"{Inventory.Category} - {Inventory.SubCategory} - {Inventory.Name}";
+            invName.DataContext = Inventory;
             
             actualTransactionText.Text = $"Actual Transaction\nQuantity: {inventoryService.CalculateClosingQuantity(Inventory.Id, actualOpeningBalance.GetValueOrDefault(0), Global.DataSource.ActualTransactions):n2}";
             portalTransactionText.Text = $"Portal Transaction\nQuantity: {inventoryService.CalculateClosingQuantity(Inventory.Id, portalOpeningBalance.GetValueOrDefault(0), Global.DataSource.PortalTransactions):n2}";
