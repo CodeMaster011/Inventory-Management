@@ -132,6 +132,7 @@
       <DependentUpon>TransactionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Global.cs" />
+    <Compile Include="SearchHelper.cs" />
     <Compile Include="IServices.cs" />
     <Compile Include="Models\Inventory.cs" />
     <Compile Include="Reports\ComparisonWindow.xaml.cs">

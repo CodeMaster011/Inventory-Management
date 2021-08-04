@@ -50,23 +50,23 @@
                     Binding="{Binding SubCategory}" />
                 <DataGridTextColumn
                     Header="Name"
-                    Width="105"
+                    Width="*"
                     Binding="{Binding Name}" />
                 <DataGridTextColumn
                     Header="HSN"
-                    Width="105"
+                    Width="60"
                     Binding="{Binding Hsn}" />
                 <DataGridTextColumn
                     Header="Unit"
-                    Width="105"
+                    Width="60"
                     Binding="{Binding Unit}" />
                 <DataGridTextColumn
                     Header="Tax Rate"
-                    Width="105"
+                    Width="60"
                     Binding="{Binding TaxRate}" />
                 <DataGridTextColumn
                     Header="Rate"
-                    Width="105"
+                    Width="60"
                     Binding="{Binding Rate}" />
             </DataGrid.Columns>
         </DataGrid>

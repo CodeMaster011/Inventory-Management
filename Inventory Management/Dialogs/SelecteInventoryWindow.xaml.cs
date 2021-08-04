@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,6 +22,8 @@ namespace Inventory_Management.Dialogs
     /// </summary>
     public partial class SelecteInventoryWindow : Window
     {
+        private List<(string Key, Inventory Inventory, long Weight)> searchables;
+
         public Inventory Inventory { get; set; }
 
         public SelecteInventoryWindow()
@@ -28,16 +31,20 @@ namespace Inventory_Management.Dialogs
             InitializeComponent();
             searchTextbox.Focus();
             searchTextbox.SelectAll();
+
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                searchables = SearchHelper.GenerateSearchKeys(Global.DataSource.Inventories);
+            });
         }
 
         private void searchTextbox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if(searchables == null)
+                searchables = SearchHelper.GenerateSearchKeys(Global.DataSource.Inventories);
+
             dataGrid.ItemsSource =
-                Global.DataSource.Inventories.Where(i =>
-                    (i.Category?.StartsWith(searchTextbox.Text, StringComparison.OrdinalIgnoreCase) ?? false)
-                    || (i.SubCategory?.StartsWith(searchTextbox.Text, StringComparison.OrdinalIgnoreCase) ?? false)
-                    || (i.Name?.StartsWith(searchTextbox.Text, StringComparison.OrdinalIgnoreCase) ?? false))
-                .ToList();
+                SearchHelper.SearchInventories(searchTextbox.Text, searchables);
         }
 
         private void dataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
