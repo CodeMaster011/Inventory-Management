@@ -47,6 +47,7 @@ namespace Inventory_Management.Services
         public List<Balance> PortalOpening { get; set; } = new List<Balance>();
         public List<Transaction> PortalTransactions { get; set; } = new List<Transaction>();
 
+        public List<DeadStock> DeadStocks { get; set; } = new List<DeadStock>();
 
         public DataSource() { }
         public DataSource(DataSourceMetadata metadata, IDataService dataService)

@@ -76,6 +76,7 @@ namespace Inventory_Management
             
             Global.Services.Register<IDataService>(new DataService());
             Global.Services.Register<IInventoryService>(new InventoryService());
+            Global.Services.Register<IDeadStockService>(new DeadStockService());
         }
 
         private void app_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

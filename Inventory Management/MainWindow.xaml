@@ -51,6 +51,10 @@
                 <MenuItem Header="Monthly Report" IsEnabled="False"/>
                 <MenuItem Header="Comparison Report" x:Name="comparisonReportMenu" Click="comparisonReportMenu_Click"/>
             </MenuItem>
+            <MenuItem Header="Dead Stock">
+                <MenuItem Header="Add New Dead Stock" x:Name="addNewDeadStockMenu" Click="addNewDeadStockMenu_Click"/>
+                <MenuItem Header="List Dead Stock" x:Name="listDeadStockMenu" Click="listDeadStockMenu_Click"/>
+            </MenuItem>
             <MenuItem Header="Help">
                 <MenuItem Header="About" x:Name="aboutMenu" Click="aboutMenu_Click"/>
             </MenuItem>
