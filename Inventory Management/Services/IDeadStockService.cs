@@ -21,9 +21,7 @@ namespace Inventory_Management.Services
         public bool AddTransactionToDeadStock(DataSource source, DeadStock deadStock, DeadStockTransaction transaction)
         {
             deadStock.Transactions.Add(transaction);
-            deadStock.Amount += transaction.Amount.GetValueOrDefault(0);
-            deadStock.Quantity += transaction.Quantity.GetValueOrDefault(0);
-
+            CalculateClosing(deadStock);
             return true;
         }
 
