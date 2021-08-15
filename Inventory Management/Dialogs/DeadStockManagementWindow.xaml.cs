@@ -73,7 +73,7 @@ namespace Inventory_Management.Dialogs
                 var line = button.CommandParameter as DeadStockTransaction;
                 if (MessageBox.Show($"Are you sure to remove item,\n{line.Remarks}?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                     return;
-                vm.ResetDeadStockTransactionCommand.Execute(line);
+                vm.DeleteDeadStockTransactionCommand.Execute(line);
                 datagrid.ItemsSource = null;
                 datagrid.ItemsSource = vm.DeadStock.Transactions;
             }

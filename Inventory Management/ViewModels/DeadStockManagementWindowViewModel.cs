@@ -64,6 +64,7 @@ namespace Inventory_Management.ViewModels
             if (obj is DeadStockTransaction line)
             {
                 DeadStock.Transactions.Remove(line);
+                Global.Services.GetServiceHard<IDeadStockService>().CalculateClosing(DeadStock);
                 NotifyPropertyChanged(nameof(Transaction));
                 DeadStock.NotifyPropertyChanged(nameof(DeadStock.Transactions));
             }
