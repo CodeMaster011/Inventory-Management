@@ -1,0 +1,213 @@
+﻿<Window x:Class="Inventory_Management.Dialogs.DeadStockManagementWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Inventory_Management.Dialogs"
+        xmlns:convt="clr-namespace:Inventory_Management.Converters"
+        xmlns:controls="clr-namespace:Inventory_Management.CustomControls"
+         xmlns:ui="http://schemas.modernwpf.com/2019"
+        ui:WindowHelper.UseModernWindowStyle="True"
+        WindowStartupLocation="CenterOwner"
+        WindowState="Maximized"
+        x:Name="window"
+        mc:Ignorable="d"
+        Title="Dead Stock" Height="500" Width="800">
+    <Window.Resources>
+        <convt:InventoryIdToTextConverter x:Key="InventoryIdToTextConverter"/>
+        <convt:BoolInversionConverter x:Key="BoolInversionConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border BorderThickness="0 0 0 2" BorderBrush="{DynamicResource SystemAccentColorLight3Brush}" Margin="0 0 0 10" Padding="0 0 0 3">
+            <TextBlock Text="Dead Stock" Style="{DynamicResource TitleTextBlockStyle}" 
+                   Foreground="{DynamicResource SystemAccentColorLight3Brush}"/>
+        </Border>
+        <Grid Grid.Row="1">
+            <StackPanel Orientation="Vertical" Margin="0 5">
+                <TextBox x:Name="searchInventoryNameTextbox" 
+                 KeyUp="searchInventoryNameTextbox_KeyUp"
+                     ui:ControlHelper.PlaceholderText="Type inventory category,sub category, name and press F9"
+                     IsReadOnly="{Binding IsReadOnly}"
+                     IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInversionConverter}}"/>
+                <TextBlock Text="Press F9 to search" Margin="0 2"/>
+
+                <StackPanel Orientation="Horizontal"
+                            Margin="0 10 0 0"
+                        DataContext="{Binding DeadStock.InventoryId, Converter={StaticResource InventoryIdToTextConverter}}">
+                    <controls:InventoryControl Inventory="{Binding}" VerticalAlignment="Center"/>
+                    <TextBlock VerticalAlignment="Center">
+                        <Run Text="{Binding Hsn}"/> <Run Text="@"/> <Run Text="{Binding TaxRate}"/>
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <DatePicker
+                    SelectedDate="{Binding DeadStock.Date}"
+                    x:Name="datePicker"
+                    Margin="5"
+                    VerticalAlignment="Top"
+                    ui:ControlHelper.Header="Date"
+                    ui:ControlHelper.PlaceholderText="Pick a date"
+                    IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInversionConverter}}"/>
+            
+            <TextBox Text="{Binding DeadStock.Remarks}"
+                         ui:ControlHelper.Header="Remarks"
+                     Grid.Column="1"
+                         Margin="5"
+                         Width="300"
+                         IsReadOnly="{Binding IsReadOnly}"
+                     IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInversionConverter}}"/>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBox Text="{Binding DeadStockTransaction.Remarks}"
+                         ui:ControlHelper.Header="Transaction Remarks"
+                         x:Name="transactionRemarksTextbox"
+                     Grid.Column="1"
+                         Margin="5"
+                         Width="300"
+                         IsReadOnly="{Binding IsReadOnly}"
+                     IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInversionConverter}}"/>
+                <TextBox Text="{Binding DeadStockTransaction.Amount}"
+                         ui:ControlHelper.Header="Transaction Amount"
+                     Grid.Column="1"
+                         Margin="5"
+                         Width="300"
+                         IsReadOnly="{Binding IsReadOnly}"
+                     IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInversionConverter}}"/>
+                <TextBox Text="{Binding DeadStockTransaction.Quantity}"
+                         ui:ControlHelper.Header="Transaction Quantity"
+                     Grid.Column="1"
+                         Margin="5"
+                         Width="300"
+                         IsReadOnly="{Binding IsReadOnly}"
+                     IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInversionConverter}}"/>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                    <Button Content="Add"
+                    Padding="10 5"
+                        Margin="5"
+                        MinWidth="90"
+                    x:Name="addTransactionButton"
+                    Click="addTransactionButton_Click" 
+                        IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInversionConverter}}" />
+                    <Button Content="Reset"
+                    Padding="10 5"
+                        MinWidth="90"
+                        Margin="5"
+                        Background="Transparent"
+                    Command="{Binding ResetDeadStockTransactionCommand}"
+                        IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInversionConverter}}"/>
+                </StackPanel>
+            </StackPanel>
+
+            <DataGrid Grid.Row="1"
+                  x:Name="datagrid"
+                  ItemsSource="{Binding DeadStock.Transactions, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding DeadStockTransaction, UpdateSourceTrigger=PropertyChanged}"
+                  AutoGenerateColumns="False"
+                  HeadersVisibility="Column"
+                  GridLinesVisibility="Horizontal"
+                  VirtualizingPanel.VirtualizationMode="Recycling"
+                  SelectionMode="Single"
+                  CanUserAddRows="False"
+                  SelectionUnit="FullRow"
+                  IsReadOnly="True"
+                  Margin="10 0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Header="Remarks"
+                        Width="220"
+                        Binding="{Binding Remarks}" />
+                    <DataGridTextColumn
+                        Header="Quantity"
+                        Width="105"
+                        Binding="{Binding Quantity}" />
+                    <DataGridTextColumn
+                        Header="Amount"
+                        Width="105"
+                        Binding="{Binding Amount}" />
+
+                    <DataGridTemplateColumn
+                        Header="Action"
+                        Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Padding="10 5"
+                                        Margin="5"
+                                        ToolTip="Delete item"
+                                        x:Name="transactionLineDeleteButton"
+                                        Click="transactionLineDeleteButton_Click"
+                                        CommandParameter="{Binding}"
+                                        IsEnabled="{Binding DataContext.IsReadOnly, ElementName=window,Converter={StaticResource BoolInversionConverter}}">
+                                        <TextBlock Text="&#xf2ed;"
+                                               FontFamily="{StaticResource FontAwesome}"/>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10 0">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsCreateAllow}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+            <Button Content="Create New"
+                    MinWidth="200"
+                    Padding="5 10"
+                    x:Name="createNewDeadStockButton"
+                    Click="createNewDeadStockButton_Click"
+                    IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInversionConverter}}"
+                    Style="{StaticResource AccentButtonStyle}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10 0">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsCreateAllow}" Value="True">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+            <Button Content="Update"
+                    MinWidth="200"
+                    Padding="5 10"
+                    x:Name="updateDeadStockButton"
+                    Click="updateDeadStockButton_Click"
+                    IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInversionConverter}}"
+                    Style="{StaticResource AccentButtonStyle}"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -220,5 +220,22 @@ namespace Inventory_Management
             public string BigText { get; set; }
             public Action OpenOnClick { get; set; }
         }
+
+        private void addNewDeadStockMenu_Click(object sender, RoutedEventArgs e)
+        {
+            new Dialogs.DeadStockManagementWindow
+            {
+                Owner = this,
+                DataContext = new ViewModels.DeadStockManagementWindowViewModel
+                {
+                    IsCreateAllow = true
+                }
+            }.ShowDialog();
+        }
+
+        private void listDeadStockMenu_Click(object sender, RoutedEventArgs e)
+        {
+            new Reports.DeadStockReportWindow() { Owner = this }.ShowDialog();
+        }
     }
 }

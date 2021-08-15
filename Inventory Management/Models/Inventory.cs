@@ -48,7 +48,9 @@ namespace Inventory_Management.Models
         Sales,
         Purchase,
         CreditNote,
-        DebitNote
+        DebitNote,
+        TransferReduce = 251451,
+        TransferAddition = 251452
     }
 
     public class TranscationLine : BindableBaseFody
@@ -58,5 +60,27 @@ namespace Inventory_Management.Models
         public double? Quantity { get; set; }
 
         public TranscationLine Clone() => JsonConvert.DeserializeObject<TranscationLine>(JsonConvert.SerializeObject(this));
+    }
+
+    public class DeadStock : BindableBaseFody
+    {
+        public string Id { get; set; }
+        public DateTime? Date { get; set; }
+        public string Remarks { get; set; }
+        public string InventoryId { get; set; }
+        public double Amount { get; set; } // Net Values
+        public double Quantity { get; set; } // Net Values
+        public List<DeadStockTransaction> Transactions { get; set; } = new List<DeadStockTransaction>();
+        public bool? IsDisposed { get; set; }
+
+        public DeadStock Clone() => JsonConvert.DeserializeObject<DeadStock>(JsonConvert.SerializeObject(this));
+    }
+
+    public class DeadStockTransaction : BindableBaseFody
+    {
+        public string Id { get; set; }
+        public string Remarks { get; set; }
+        public double? Amount { get; set; } // (+) Income; (-) Expense
+        public double? Quantity { get; set; }
     }
 }

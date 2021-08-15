@@ -14,6 +14,6 @@
         <Border Background="{DynamicResource SystemAccentColorLight2Brush}" Padding="5 2" CornerRadius="4" Margin="5 0">
             <TextBlock Text="{Binding Inventory.SubCategory}" Foreground="White" />
         </Border>
-        <TextBlock VerticalAlignment="Center" Text="{Binding Inventory.Name}"/>
+        <TextBlock VerticalAlignment="Center" Text="{Binding Inventory.Name}"/> 
     </StackPanel>
 </UserControl>

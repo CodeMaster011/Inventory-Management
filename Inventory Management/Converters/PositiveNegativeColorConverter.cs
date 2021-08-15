@@ -17,6 +17,9 @@ namespace Inventory_Management.Converters
                 dValue = ((double?)value).Value;
             if (value.GetType() == typeof(double))
                 dValue = (double)value;
+            if (value.GetType() == typeof(string))
+                if (double.TryParse(value as string, out dValue)) { }
+
             if (dValue < 0)
                 return NegativeValueColor;
             return PositiveValueColor;

@@ -110,6 +110,9 @@
     <Compile Include="Dialogs\CreateDatasourceWindow.xaml.cs">
       <DependentUpon>CreateDatasourceWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\DeadStockManagementWindow.xaml.cs">
+      <DependentUpon>DeadStockManagementWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\ImportInventoryWindow.xaml.cs">
       <DependentUpon>ImportInventoryWindow.xaml</DependentUpon>
     </Compile>
@@ -132,6 +135,9 @@
       <DependentUpon>TransactionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Global.cs" />
+    <Compile Include="Reports\DeadStockReportWindow.xaml.cs">
+      <DependentUpon>DeadStockReportWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SearchHelper.cs" />
     <Compile Include="IServices.cs" />
     <Compile Include="Models\Inventory.cs" />
@@ -146,9 +152,11 @@
     </Compile>
     <Compile Include="Services\DataService.cs" />
     <Compile Include="Services\IDataService.cs" />
+    <Compile Include="Services\IDeadStockService.cs" />
     <Compile Include="Services\IInventoryService.cs" />
     <Compile Include="Services\InventoryService.cs" />
     <Compile Include="StdClass.cs" />
+    <Compile Include="ViewModels\DeadStockManagementWindowViewModel.cs" />
     <Compile Include="ViewModels\InventoryWindowViewModel.cs" />
     <Compile Include="ViewModels\TransactionWindowViewModel.cs" />
     <Page Include="CustomControls\InventoryControl.xaml">
@@ -160,6 +168,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\CreateDatasourceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\DeadStockManagementWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -208,6 +220,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Reports\DailyReportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reports\DeadStockReportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
